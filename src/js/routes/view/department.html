@@ -1,0 +1,77 @@
+<div class="oj-hybrid-padding">
+    <oj-messages messages="[[messagesDataprovider]]" position="{}" display="notification"></oj-messages>
+    <h1 data-bind="text: heading"></h1>
+    <hr>
+    <div class="oj-panel oj-margin oj-panel-alt2">
+        <div id="form-container" class="oj-form-layout">
+            <div class="oj-form oj-flex">
+                <div class="oj-flex-item">
+                    <div class='oj-flex-bar-middle'>
+                        <oj-label for='departmentname' show-required="[[isDepartmentNameRequired]]" 
+                                  class="oj-label-inline" help.definition='[[departmentNameHelpDef]]' 
+                                  help.source='[[departmentNameHelpDefHelpSource]]'>Department Name</oj-label>
+                        <oj-input-text autofocus id="departmentname" required="[[isDepartmentNameRequired]]" value="{{departmentNameInput}}" clear-icon="conditional"></oj-input-text>
+                        <div class="oj-margin"></div>
+                        <oj-button id='button1' on-oj-action='[[departmentSearch]]' class="oj-button-confirm">
+                            <span slot="startIcon" class="oj-fwk-icon oj-fwk-icon-magnifier"></span>
+                            Search
+                        </oj-button>
+                        <div class="oj-margin"></div>
+                        <oj-button id='button2' on-oj-action='[[departmentCreate]]' class="oj-button-primary">
+                            <span slot="startIcon" class="oj-fwk-icon-plus oj-fwk-icon"></span>
+                            Create
+                        </oj-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr-table id="deptstable" aria-label="Departments" tabular-data='[[pagingDatasource]]' data-columns='[[departmentColumns]]' 
+              page-size="[[departmentParams().pageSize]]" on-selection='{{departmentSelection}}'
+              selection-type="[[selectionType]]"></hr-table>
+    <hr>
+    <oj-bind-if test="[[selected]]"><span>Selected: <oj-bind-text value='[[selected]]'></oj-bind-text></span></oj-bind-if>
+    <script type="text/html" id="dept_name">
+        <tr>
+            <td><strong><span data-bind="text: $context.row.DepartmentName"></span></strong></td>
+        </tr>
+        <tr>
+            <td data-bind="text: $context.row.DepartmentId"></td>
+        </tr>
+    </script>
+    <script type="text/html" id="dept_ops">
+        <tr>
+            <td><oj-button id='button3' class="oj-button-half-chrome">
+                <span slot="startIcon" class="oj-fwk-icon oj-fwk-icon-arrowtail-start"></span>Remove</oj-button></td>
+        </tr>
+    </script>
+</div>
+<!--<div>
+    <hr-modal modal-id="crudmodal" modal-title="Edit" on-dialog-close='[[onDialogClose]]'></hr-modal>
+</div>-->
+<oj-dialog style="display:none" id='crudmodal'>
+    <div slot="header">
+        <div class="oj-dialog-title"><oj-bind-text value="{{modalHeader}}"></oj-bind-text></div>
+    </div>
+    <div slot="body">
+        <div id="form-container" class="oj-form-layout">
+            <div class="oj-form">
+                <oj-label for='mDeptId1' show-required="true" 
+                              class="oj-label-inline">Department Id</oj-label>
+                <oj-input-text id="mDeptId1" required="true" value="{{mDepartmentId}}"></oj-input-text>
+                <oj-label for='mDeptName1' show-required="true" 
+                          class="oj-label-inline">Department Name</oj-label>
+                <oj-input-text id="mDeptName1" required="true" value="{{mDepartmentName}}" clear-icon="conditional"></oj-input-text>
+                <oj-label for='mLocId1' class="oj-label-inline">Location Id</oj-label>
+                <oj-input-text id="mLocId1" value="{{mLocationId}}" clear-icon="conditional"></oj-input-text>
+                <oj-label for='mMgrId1' class="oj-label-inline">Manager Id</oj-label>
+                <oj-input-text id="mMgrId1" value="{{mManagerId}}" clear-icon="conditional"></oj-input-text>
+        </div>
+    </div>
+</div>
+<hr>
+<div slot="footer">
+    <oj-button id="okButton" class='oj-button-confirm' on-oj-action='[[onDialogOk]]'>OK</oj-button>
+    <oj-button id="cancelButton" class='oj-button-primary' on-oj-action='[[onDialogCancel]]'>Cancel</oj-button>
+</div>
+</oj-dialog>

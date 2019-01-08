@@ -1,0 +1,32 @@
+<div class="oj-flex oj-header-border">
+    <div class="oj-flex-item">
+        <h1 data-bind="text: heading" class="oj-sm-float-start"></h1>
+        <div class="oj-sm-float-end" id='buttons-container' style="margin-top: 20px;">    
+            <button id="addEmpl" data-bind="click: createEmployee, ojComponent: {component: 'ojButton', 
+                                                                           icons: {end:'oj-fwk-icon-caret-end oj-fwk-icon'}, 
+                                                                           label: 'Create'}">
+            </button>
+        </div>
+    </div>
+</div>
+<div class="oj-panel oj-margin">
+    <oj-table id='emplstable' aria-label='Employees' data='[[pagingDatasource]]'
+              columns='[[employeeColumns]]' style='width: 100%;'
+              selection-mode='[[selectionType]]'/>
+    <oj-paging-control id="paging" data='[[pagingDatasource]]' page-size='[[employeeParams().pageSize]]' slot='bottom'/>
+</div>
+<script type="text/html" id="empl_ops">
+    <tr>
+        <td>
+            <button data-bind="click: function() {$parent.editEmployee($context.row.EmployeeId) }, ojComponent: {component: 'ojButton',
+                                                                                              display: 'icons', 
+                                                                                              icons: {end: 'oj-fwk-icon-caret-end oj-fwk-icon'},
+                                                                                              label: 'Edit'}"></button>
+        </td>
+        <td>
+            <oj-button id="delempl1" class="oj-button oj-button-full-chrome" display="icons">
+                <span slot='endIcon' class="demo-garbage-icon-24 demo-icon-font-24"></span>
+            </oj-button>
+        </td>
+    </tr>
+</script>

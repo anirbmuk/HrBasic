@@ -1,0 +1,40 @@
+{
+    "name": "hr-table",
+    "author": "anirbmuk",
+    "description": "Web component for table collection",
+    "version": "1.0.0",
+    "jetVersion": "^6.0.0",
+    "properties": {
+        "ariaLabel": {
+            "description": "aria-label for table component",
+            "type": "string"
+        },
+        "tabularData": {
+            "description": "collection data for table component",
+            "type": "object"
+        },
+        "dataColumns": {
+            "description": "columns for the data table component",
+            "type": "object"
+        },
+        "pageSize": {
+            "description": "page size for pagination control",
+            "type": "number"
+        },
+        "selectionType": {
+            "description": "object to decide on single or multiple selection",
+            "type": "object"
+        },
+        "onSelection": {
+            "type": "function"
+        }
+    },
+    "events": {
+        "gridDblClick": {
+            "description": "",
+            "bubbles" : true,
+            "cancelable": false,
+            "detail": { "currentrow": "object" }
+        }
+    }
+}

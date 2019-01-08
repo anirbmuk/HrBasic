@@ -1,0 +1,40 @@
+<div class="oj-hybrid-padding">
+    <h1 data-bind="text: heading"></h1>
+    <hr>
+    <div class="oj-panel oj-margin oj-panel-alt2">
+        <div id="form-container" class="oj-form-layout">
+            <div class="oj-form oj-flex">
+                <div class="oj-flex-item">
+                    <div class='oj-flex-bar-middle'>
+                        <oj-label for='locationid' show-required="[[isCountryIdRequired]]" 
+                                  class="oj-label-inline" help.definition='[[countryIdHelpDef]]' 
+                                  help.source='[[countryHelpSource]]'>Country Id</oj-label>
+                        <oj-input-text autofocus id="countryid" required="[[isCountryIdRequired]]" value="{{countryIdInput}}" clear-icon="conditional"></oj-input-text>
+                        <div class="oj-margin"></div>
+                        <oj-label for='city' show-required="[[isCityRequired]]" 
+                                  class="oj-label-inline" help.definition='[[cityHelpDef]]' 
+                                  help.source='[[cityHelpSource]]'>City</oj-label>
+                        <oj-input-text id="city" required="[[isCityRequired]]" value="{{cityInput}}" clear-icon="conditional"></oj-input-text>
+                        <div class="oj-margin"></div>
+                        <oj-button id='button1' on-oj-action='[[locationSearch]]' class="oj-button-confirm">
+                            <span slot="startIcon" class="oj-fwk-icon oj-fwk-icon-clock"></span>
+                            Search
+                        </oj-button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr-table aria-label="Locations" tabular-data='[[pagingDatasource]]' data-columns='[[locationColumns]]' 
+              page-size="[[locationParams().pageSize]]" on-selection='{{locationSelection}}'
+              selection-type="[[selectionType]]"></hr-table>
+    <hr>
+    <oj-bind-if test="[[selected]]"><span>Selected: <oj-bind-text value='[[selected]]'></oj-bind-text></span></oj-bind-if>
+    <script type="text/html" id="loc_name">
+        <tr>
+            <td><strong><span data-bind="text: $context.row.City"></span></strong></td>
+        </tr>
+        <tr>
+            <td data-bind="text: $context.row.CountryId"></td>
+        </tr>
+    </script>
+</div>

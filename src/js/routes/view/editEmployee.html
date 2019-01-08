@@ -1,0 +1,65 @@
+<oj-messages messages="[[messagesDataprovider]]" position="{}" display="notification"></oj-messages>
+<div class="oj-flex oj-header-border">
+    <div class="oj-flex-item">
+        <div class="oj-sm-float-start" id='buttons-container' style="margin-top: 20px;">    
+            <button id="backBtn" data-bind="click: cancelTransaction, ojComponent: {component: 'ojButton', 
+                                                                           icons: {start:'oj-fwk-icon-caret-start oj-fwk-icon'}, 
+                                                                           label: 'Cancel'}">
+            </button>
+        </div>
+        <div class="oj-sm-float-end" id='buttons-container' style="margin-top: 20px;">    
+            <button id="saveBtn" data-bind="click: saveTransaction, ojComponent: {component: 'ojButton', 
+                                                                           icons: {end:'oj-fwk-icon-caret-end oj-fwk-icon'}, 
+                                                                           label: 'Save'}">
+            </button>
+        </div>
+    </div>
+</div>
+<h2 data-bind="text: heading"></h2>
+<div id="form-container">
+    <div class="oj-form-layout" data-bind="with: employeeModel">
+        <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-5 oj-md-labels-inline">
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <oj-label for="firstname">First Name</oj-label>
+                </div>
+                <div class="oj-flex-item">
+                    <oj-input-text autofocus id="firstname" value="{{attributes.FirstName}}" clear-icon="conditional"></oj-input-text>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <oj-label for="lastname">Last Name</oj-label>
+                </div>
+                <div class="oj-flex-item">
+                    <oj-input-text id="lastname" value="{{attributes.LastName}}" clear-icon="conditional"></oj-input-text>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <oj-label for="email">Email</oj-label>
+                </div>
+                <div class="oj-flex-item">
+                    <oj-input-text id="email" value="{{attributes.Email}}" clear-icon="conditional"></oj-input-text>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <oj-label for="jobid">Job</oj-label>
+                </div>
+                <div class="oj-flex-item">
+                    <oj-input-text id="jobid" value="{{attributes.JobId}}" clear-icon="conditional"></oj-input-text>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <oj-label for="salary">Salary</oj-label>
+                </div>
+                <div class="oj-flex-item">
+                    <oj-input-number id="salary" value="{{attributes.Salary}}" step='10' min='0' clear-icon="conditional"></oj-input-number>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
