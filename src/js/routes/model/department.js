@@ -115,13 +115,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/departmentvm', 'common/utils/t
                             msgDetail: 'One department created'
                     }, self.confirmationMessageTimeout()));
                      self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.DepartmentData())));
-                    //$('#deptstable')[0].refresh();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     self.onDialogCancel();
                     self.messages(messageutils.buildMessage('error', {
-                            msgSummary: 'Error',
-                            msgDetail: 'Failed to create department'
+                            msgSummary: 'Failed to create department',
+                            msgDetail: jqXHR.responseText
                     }, self.confirmationMessageTimeout()));
                 }
             });
@@ -138,13 +137,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/departmentvm', 'common/utils/t
                             msgDetail: 'One department updated'
                     }, self.confirmationMessageTimeout()));
                     self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.DepartmentData())));
-                    // $('#deptstable')[0].refresh();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     self.onDialogCancel();
                     self.messages(messageutils.buildMessage('error', {
-                            msgSummary: 'Error',
-                            msgDetail: 'Failed to update department'
+                            msgSummary: 'Failed to update department',
+                            msgDetail: jqXHR.responseText
                     }, self.confirmationMessageTimeout()));
                 }
             });

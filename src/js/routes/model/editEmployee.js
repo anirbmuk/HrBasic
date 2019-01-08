@@ -1,12 +1,17 @@
-define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/messageutils', 'ojs/ojinputnumber'],
-function(oj, ko, $, emp, messageutils) {
+define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/messageutils', 'common/utils/dateutils',
+       'ojs/ojinputnumber', 'ojs/ojdatetimepicker'],
+function(oj, ko, $, emp, messageutils, dateutils) {
     
     function EditEmployeeModel() {
         
         const self = this;
         
         self.heading = ko.observable();
-        self.employeeModel = ko.observable();
+        self.viewMode = ko.observable();
+        self.displayId = ko.observable(false);
+        
+        self.EmployeeModel = ko.observable();
+        self.EmployeeData = ko.observable();
         
         self.routeInstance = ko.observable();
         self.messages = ko.observableArray([]);
@@ -15,7 +20,11 @@ function(oj, ko, $, emp, messageutils) {
         self.confirmationMessageTimeout = ko.observable('3000');
         self.errorMessageTimeout = ko.observable('5000');
         
+        self.dateConverter = ko.observable(dateutils.getConverter('dd-MMM-yyyy'));
+        
         self.init = function() {
+            
+            self.viewMode('edit');
             self.routeInstance(oj.Router.rootInstance);
             self.messages([]);
             
@@ -24,21 +33,40 @@ function(oj, ko, $, emp, messageutils) {
             
             const { mode, employeeId } = routeData;
             
-            if(!mode || !employeeId) {
+            if(mode) {
+                if (mode === 'edit') {
+                    if (!employeeId) {
+                        oj.Router.rootInstance.go("employee");
+                        return false;
+                    }
+                    self.heading(`Edit employee ${routeData.employeeId}`);
+                } else {
+                    self.viewMode('create');
+                    self.heading(`Create employee`);
+                }
+            } else {
                 oj.Router.rootInstance.go("employee");
             }
             
-            const model = emp.getEmployeeModel();
-            model.id = employeeId;
+            self.displayId(self.viewMode() === 'create');
             
-            model.fetch({
-                success: function(employeeModel) {
-                    self.employeeModel(employeeModel);
-                },
-                error: function(err) {
-                    console.log(err);
-                }
-            });
+            let model = emp.getEmployeeModel();
+            
+            if (self.viewMode() === 'edit') {
+                model.id = employeeId;
+
+                model.fetch({
+                    success: function(employeeModel) {
+                        self.EmployeeModel(employeeModel);
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
+            } else {
+                self.EmployeeData(emp.getEmployeeCollection());
+                self.EmployeeModel(model);
+            }
             
         };
         
@@ -54,9 +82,29 @@ function(oj, ko, $, emp, messageutils) {
             self.routeInstance().go("employee");
         };
         
-        self.saveTransaction = function() {
-            const modifiedEmployee = self.employeeModel().attributes;
-            self.employeeModel().save(modifiedEmployee, {
+        self.createEmployee = function(collection, employee) {
+            collection.create(employee, {
+                contentType: 'application/vnd.oracle.adf.resourceitem+json',
+                success: function (response) {
+                    self.messages(messageutils.buildMessage('confirmation', {
+                            msgSummary: 'Success',
+                            msgDetail: 'One employee created'
+                    }, self.confirmationMessageTimeout()));
+                    setTimeout(function() {
+                        self.refreshTransaction(true);
+                    }, self.confirmationMessageTimeout());
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    self.messages(messageutils.buildMessage('error', {
+                            msgSummary: 'Failed to create employee',
+                            msgDetail: jqXHR.responseText
+                    }, self.confirmationMessageTimeout()));
+                }
+            });
+        };
+        
+        self.editEmployee = function(collection, employee) {
+            collection.save(employee, {
                 contentType: 'application/vnd.oracle.adf.resourceitem+json',
                 patch: 'patch',
                 success: function (response) {
@@ -73,11 +121,20 @@ function(oj, ko, $, emp, messageutils) {
                             msgSummary: 'Error',
                             msgDetail: 'Failed to update employee'
                     }, self.confirmationMessageTimeout()));
-                    setTimeout(function() {
-                        self.refreshTransaction(false);
-                    }, self.errorMessageTimeout());
                 }
             });
+        };
+        
+        self.saveTransaction = function() {
+            const employee = self.EmployeeModel().attributes;
+            let collection;
+            if (self.viewMode() === 'create') {
+                collection = self.EmployeeData();
+                self.createEmployee(collection, employee);
+            } else {
+                collection = self.EmployeeModel();
+                self.editEmployee(collection, employee);
+            }
         };
         
     };
