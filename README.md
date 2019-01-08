@@ -1,5 +1,8 @@
 # HrBasic
+JET 6.0.0 application - based on basic template of ojet cli
 
-JET 6.0.0 application - based on basic template
+# REST API
+https://github.com/anirbmuk/HrService.git
 
-Blog - https://jetsolutions.anirbanblogs.com/
+# Blog
+https://jetsolutions.anirbanblogs.com/
