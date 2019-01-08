@@ -30,3 +30,8 @@
         </td>
     </tr>
 </script>
+<script type="text/html" id="empl_date">
+    <td>
+        <span data-bind="text: $parent.getStringFromDate($context.row.HireDate, 'dd-MMM-yyyy')"></span>
+    </td>
+</script>

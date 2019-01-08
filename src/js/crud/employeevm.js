@@ -59,7 +59,7 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
             { "headerText": "Email", "field": "Email"},
             { "headerText": "Job Id", "field": "JobId"},
             { "headerText": "Salary", "field": "Salary"},
-            { "headerText": "Hired On", "field": "HireDate"},
+            { "headerText": "Hired On", "renderer": oj.KnockoutTemplateUtils.getRenderer("empl_date", true)},
             { "headerText": "Department", "field": "DepartmentId"},
             { "headerText": "Actions", "renderer": oj.KnockoutTemplateUtils.getRenderer("empl_ops", true) }];
     

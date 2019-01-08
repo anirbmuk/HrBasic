@@ -1,6 +1,6 @@
-define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm',
+define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/dateutils',
         'ojs/ojbutton', 'ojs/ojpagingcontrol', 'ojs/ojpagingtabledatasource', 'ojs/ojarraytabledatasource', 'ojs/ojcollectiontabledatasource'],
-(oj, ko, $, emp) => {
+(oj, ko, $, emp, dateutils) => {
     
     function EmployeeViewModel() {
         const self = this;
@@ -28,6 +28,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm',
             }
             
             oj.Router.rootInstance.store();
+        };
+        
+        self.getStringFromDate = function(date, format) {
+            return dateutils.getStringFromDate(date, format);
         };
         
         self.createEmployee = function() {
