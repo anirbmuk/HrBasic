@@ -43,8 +43,8 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     };
     
     const employeeParams = {
-        limit: 7,
-        pageSize: 7,
+        limit: 6,
+        pageSize: 6,
         totalResults: true,
         onlyData: true
     };

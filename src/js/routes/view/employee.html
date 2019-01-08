@@ -16,19 +16,16 @@
     <oj-paging-control id="paging" data='[[pagingDatasource]]' page-size='[[employeeParams().pageSize]]' slot='bottom'/>
 </div>
 <script type="text/html" id="empl_ops">
-    <tr>
-        <td>
-            <button data-bind="click: function() {$parent.editEmployee($context.row.EmployeeId) }, ojComponent: {component: 'ojButton',
-                                                                                              display: 'icons', 
-                                                                                              icons: {end: 'oj-fwk-icon-caret-end oj-fwk-icon'},
-                                                                                              label: 'Edit'}"></button>
-        </td>
-        <td>
-            <oj-button id="delempl1" class="oj-button oj-button-full-chrome" display="icons">
-                <span slot='endIcon' class="demo-garbage-icon-24 demo-icon-font-24"></span>
-            </oj-button>
-        </td>
-    </tr>
+    <td>
+        <button id="editemp1" data-bind="click: function() {$parent.editEmployee($context.row.EmployeeId) }, ojComponent: {component: 'ojButton',
+                                                                                          display: 'icons', 
+                                                                                          icons: {end: 'oj-fwk-icon-caret-end oj-fwk-icon'},
+                                                                                          label: 'Edit'}"></button>
+        <button id="delemp1" data-bind="click: function() {$parent.deleteEmployee($context.row.EmployeeId) }, ojComponent: {component: 'ojButton',
+                                                                                          display: 'icons', 
+                                                                                          icons: {end: 'demo-garbage-icon-24 demo-icon-font-24'},
+                                                                                          label: 'Edit'}"></button>
+    </td>
 </script>
 <script type="text/html" id="empl_date">
     <td>

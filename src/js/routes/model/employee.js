@@ -50,6 +50,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/dat
             oj.Router.rootInstance.go("editEmployee");
         };
         
+        self.deleteEmployee = function(employeeId) {
+            const model = emp.getEmployeeModel();
+            model.id = employeeId;
+            self.EmployeeData().get(model).then(employeeModel => {
+                employeeModel.destroy({ wait: true });
+                self.EmployeeData(emp.getEmployeeCollection());
+                self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.EmployeeData())));
+            });
+        };
+        
     };
     
     return new EmployeeViewModel();
