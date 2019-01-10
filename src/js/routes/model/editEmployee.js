@@ -1,5 +1,5 @@
 define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/messageutils', 'common/utils/dateutils',
-       'ojs/ojinputnumber', 'ojs/ojdatetimepicker'],
+       'ojs/ojinputnumber', 'ojs/ojdatetimepicker', 'ojs/ojvalidationgroup'],
 function(oj, ko, $, emp, messageutils, dateutils) {
     
     function EditEmployeeModel() {
@@ -21,6 +21,8 @@ function(oj, ko, $, emp, messageutils, dateutils) {
         self.errorMessageTimeout = ko.observable('5000');
         
         self.dateConverter = ko.observable(dateutils.getConverter('dd-MMM-yyyy'));
+        
+        self.employeeValid = ko.observable();
         
         self.init = function() {
             
@@ -69,6 +71,12 @@ function(oj, ko, $, emp, messageutils, dateutils) {
             }
             
         };
+        
+        self.validators = [
+            {
+                
+            }
+        ];
         
         self.cancelTransaction = function() {
             self.routeInstance().store();
@@ -126,14 +134,21 @@ function(oj, ko, $, emp, messageutils, dateutils) {
         };
         
         self.saveTransaction = function() {
-            const employee = self.EmployeeModel().attributes;
-            let collection;
-            if (self.viewMode() === 'create') {
-                collection = self.EmployeeData();
-                self.createEmployee(collection, employee);
+            const tracker = $("#tracker")[0];
+            console.log(tracker.valid);
+            if (tracker && tracker.valid === 'valid') {
+                const employee = self.EmployeeModel().attributes;
+                let collection;
+                if (self.viewMode() === 'create') {
+                    collection = self.EmployeeData();
+                    self.createEmployee(collection, employee);
+                } else {
+                    collection = self.EmployeeModel();
+                    self.editEmployee(collection, employee);
+                }
             } else {
-                collection = self.EmployeeModel();
-                self.editEmployee(collection, employee);
+                tracker.showMessages();
+                tracker.focusOn("@firstInvalidShown");
             }
         };
         

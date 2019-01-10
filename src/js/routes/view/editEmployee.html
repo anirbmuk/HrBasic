@@ -17,75 +17,77 @@
 </div>
 <h2 data-bind="text: heading"></h2>
 <div id="form-container">
-    <div class="oj-form-layout" data-bind="with: EmployeeModel">
-        <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-5 oj-md-labels-inline">
-            
+    <oj-validation-group id="tracker" valid="{{employeeValid}}">
+        <div class="oj-form-layout" data-bind="with: EmployeeModel">
+            <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-5 oj-md-labels-inline">
+
                 <div class="oj-flex">
                     <div class="oj-flex-item">
                         <oj-label for="empid" show-required='true'>Employee Id</oj-label>
                     </div>
                     <div class="oj-flex-item">
-                        <oj-input-text id="empid" value="{{attributes.EmployeeId}}" clear-icon="conditional"></oj-input-text>
+                        <oj-input-text id="empid" value="{{attributes.EmployeeId}}" clear-icon="conditional" required></oj-input-text>
                     </div>
                 </div>
-            
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <oj-label for="firstname">First Name</oj-label>
+
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="firstname">First Name</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text autofocus id="firstname" value="{{attributes.FirstName}}" clear-icon="conditional"></oj-input-text>
+                    </div>
                 </div>
-                <div class="oj-flex-item">
-                    <oj-input-text autofocus id="firstname" value="{{attributes.FirstName}}" clear-icon="conditional"></oj-input-text>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="lastname">Last Name</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="lastname" value="{{attributes.LastName}}" clear-icon="conditional"></oj-input-text>
+                    </div>
                 </div>
-            </div>
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <oj-label for="lastname">Last Name</oj-label>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="email" show-required="true">Email</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="email" value="{{attributes.Email}}" clear-icon="conditional" required></oj-input-text>
+                    </div>
                 </div>
-                <div class="oj-flex-item">
-                    <oj-input-text id="lastname" value="{{attributes.LastName}}" clear-icon="conditional"></oj-input-text>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="jobid">Job</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="jobid" value="{{attributes.JobId}}" clear-icon="conditional"></oj-input-text>
+                    </div>
                 </div>
-            </div>
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <oj-label for="email">Email</oj-label>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="hiredate" show-required="true">Hired On</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-date id="hiredate" value="{{attributes.HireDate}}" required converter="[[$parent.dateConverter]]" clear-icon="conditional"></oj-input-date>
+                    </div>
                 </div>
-                <div class="oj-flex-item">
-                    <oj-input-text id="email" value="{{attributes.Email}}" clear-icon="conditional"></oj-input-text>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="salary">Salary</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-number id="salary" value="{{attributes.Salary}}" step='10' min='0' clear-icon="conditional"></oj-input-number>
+                    </div>
                 </div>
-            </div>
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <oj-label for="jobid">Job</oj-label>
-                </div>
-                <div class="oj-flex-item">
-                    <oj-input-text id="jobid" value="{{attributes.JobId}}" clear-icon="conditional"></oj-input-text>
-                </div>
-            </div>
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <oj-label for="hiredate">Hired On</oj-label>
-                </div>
-                <div class="oj-flex-item">
-                    <oj-input-date id="hiredate" value="{{attributes.HireDate}}" converter="[[$parent.dateConverter]]" clear-icon="conditional"></oj-input-date>
-                </div>
-            </div>
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <oj-label for="salary">Salary</oj-label>
-                </div>
-                <div class="oj-flex-item">
-                    <oj-input-number id="salary" value="{{attributes.Salary}}" step='10' min='0' clear-icon="conditional"></oj-input-number>
-                </div>
-            </div>
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <oj-label for="deptid">Department</oj-label>
-                </div>
-                <div class="oj-flex-item">
-                    <oj-input-number id="deptid" value="{{attributes.DepartmentId}}" step='10' min='0' clear-icon="conditional"></oj-input-number>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="deptid" show-required="true">Department</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-number id="deptid" value="{{attributes.DepartmentId}}" required step='10' min='0' clear-icon="conditional"></oj-input-number>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </oj-validation-group>
 </div>
 </div>
