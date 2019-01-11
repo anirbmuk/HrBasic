@@ -23,7 +23,8 @@ define(['ojs/ojcore', 'knockout', './data/server', 'ojs/ojknockout', 'ojs/ojnavi
           'location':  { label: 'Locations', id: 'location', isDefault: true },
           'department': { label: 'Departments', id: 'department' },
           'employee': { label: 'Employees', id: 'employee' },
-          'editEmployee': { label: 'Edit Employee', id: 'editEmployee' }
+          'editEmployee': { label: 'Edit Employee', id: 'editEmployee' },
+          'demo': { label: 'Playground', id: 'demo' }
         });
         
       self.navigationData = [
@@ -32,7 +33,9 @@ define(['ojs/ojcore', 'knockout', './data/server', 'ojs/ojknockout', 'ojs/ojnavi
       {name: 'Departments', id: 'department',
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24'},
       {name: 'Employees', id: 'employee',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24'}
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-people-icon-24'},
+      {name: 'Playground', id: 'demo',
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'}
       ];
       self.navigationList = new oj.ArrayTableDataSource(self.navigationData, {idAttribute: 'id'});
 
