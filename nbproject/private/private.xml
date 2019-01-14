@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/js/routes/model/demo.js</url>
+            <bookmark id="1">
+                <name/>
+                <line>102</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Anirban/Source/Samples/HrBasic/src/js/routes/view/demo.html</file>
-            <file>file:/C:/Anirban/Source/Samples/HrBasic/src/js/routes/model/demo.js</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

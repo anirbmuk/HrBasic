@@ -1,11 +1,11 @@
 define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     
     getCustomUrl = function() {
-        return urlhelper.getUrl('employees', null, employeeParams);
+        return urlhelper.getUrl('employeesauth', null, employeeParams);
     };
     
     getBaseUrl = function() {
-        return urlhelper.getBaseUrl('employees');
+        return urlhelper.getBaseUrl('employeesauth');
     };
     
     parseEmpl = function(response) {
