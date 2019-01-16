@@ -11,7 +11,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/dat
         
         self.selectionType = { row: 'none', column: 'none' };
         self.EmployeeData = ko.observable();
-        self.employeeColumns = emp.employeeColumns;
+        self.employeeColumns = emp.employeeActionColumns;
         self.employeeParams = ko.observable(emp.employeeParams);
         self.pagingDatasource = ko.observable(new oj.PagingTableDataSource(new oj.ArrayTableDataSource([])));
         

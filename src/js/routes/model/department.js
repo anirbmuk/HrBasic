@@ -1,6 +1,6 @@
 define(['ojs/ojcore', 'knockout', 'jquery', 'crud/departmentvm', 'common/utils/tableutils', 'common/utils/messageutils', 'ojs/ojknockout-model',
         'common/composites/hr-table/loader', 'ojs/ojinputtext', 'ojs/ojlabel', 'ojs/ojbutton', 'ojs/ojtable',
-        'ojs/ojpagingcontrol', 'ojs/ojpagingtabledatasource', 'ojs/ojarraytabledatasource', 'ojs/ojcollectiontabledatasource'],
+        'ojs/ojpagingtabledatasource', 'ojs/ojarraytabledatasource', 'ojs/ojcollectiontabledatasource'],
         (oj, ko, $, department, tableutils, messageutils) => {
 
     function DepartmentViewModel() {
@@ -49,17 +49,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/departmentvm', 'common/utils/t
         self.departmentSearch = function () {
             const departmentSearchObject = [{ key: 'Bind_departmentname', value: self.departmentNameInput() }];
             self.DepartmentData(department.getDepartmentCollection(departmentSearchObject));
-            
-//            Fetch operation
-//            self.DepartmentData().fetch({
-//                success: function(data) {
-//                    console.log(data);
-//                },
-//                error: function(jqXHR, textStatus, errorThrown){
-//                    console.log('Error in fetch: ' + textStatus);
-//                }
-//            });
-            
             self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.DepartmentData())));
         };
         

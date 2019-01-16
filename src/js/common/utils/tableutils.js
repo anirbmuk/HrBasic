@@ -6,6 +6,7 @@ define(function() {
             if (event.detail.value.length === 0) {
                 return allPromises;
             }
+
             event.detail.value.forEach(function(newCurrentRow) {
                 const startIndex = newCurrentRow['startIndex']['row'];
                 const endIndex = newCurrentRow['endIndex']['row'];

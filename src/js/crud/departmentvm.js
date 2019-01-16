@@ -1,11 +1,11 @@
 define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     
-    getUrl = function(departmentInput) {
+    function getUrl(departmentInput) {
         return urlhelper.getUrl('departments', departmentInput, departmentParams);
     };
     
-    getBaseUrl = function() {
-        return urlhelper.getBaseUrl('departments');
+    function getBaseUrl() {
+        return urlhelper.getBaseUrl('departments', departmentParams.expand, departmentParams.child);
     };
     
     parseDept = function(response) {
@@ -13,14 +13,15 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
             'DepartmentId': response.DepartmentId,
             'DepartmentName': response.DepartmentName,
             'LocationId': response.LocationId,
-            'ManagerId': response.ManagerId
+            'ManagerId': response.ManagerId,
+            'EmployeesVO': response.EmployeesVO
         };
     };
     
     // Department Model
-    getDepartmentModel = function() {
+    function getDepartmentModel() {
         const DepartmentModel = crud.getModel({
-            urlRoot: this.getBaseUrl(),
+            urlRoot: getBaseUrl(),
             parse: parseDept,
             parseSave: parseDept,
             idAttribute: 'DepartmentId'
@@ -29,7 +30,7 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     };
     
     // Department Collection
-    getDepartmentCollection = function(departmentInput) {
+    function getDepartmentCollection(departmentInput) {
         const DepartmentCollection = crud.getCollection({
             url: getUrl(departmentInput),
             fetchSize: departmentParams.limit,
@@ -42,15 +43,17 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
         limit: 5,
         pageSize: 5,
         totalResults: true,
-        onlyData: true,
-        finder: 'SearchDepartments'
+        onlyData: false,
+        finder: 'SearchDepartments',
+        expand: true,
+        child: 'EmployeesVO'
     };
     
 //    const departmentColumns = [{"headerText": "Department", "renderer": oj.KnockoutTemplateUtils.getRenderer("dept_name", true) },
 //            {"headerText": "Location Id", "field": "LocationId"},
 //            {"headerText": "ManagerId", "field": "ManagerId"}];
 
-    const departmentColumns = [{"headerText": "Department Id", "field": "DepartmentId" },
+    const departmentColumns = [{"headerText": "Id", "field": "DepartmentId" },
             {"headerText": "Department Name", "field": "DepartmentName" },
             {"headerText": "Location Id", "field": "LocationId"},
             {"headerText": "Manager Id", "field": "ManagerId"}];

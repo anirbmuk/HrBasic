@@ -1,7 +1,6 @@
 define(function() {
     
     let serverModel;
-    let root;
     let self = this;
     
     const ServerModel = function (host, port, root) {

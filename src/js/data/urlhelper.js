@@ -1,18 +1,23 @@
-define(['./../data/server'], function(server) {
+define(['data/server'], function(server) {
     
     var self = this;
     self.server = server.getServerModel();
     self.url = `http://${self.server.host}:${self.server.port}/${self.server.root}`;
     
-    getBaseUrl = function(node) {
+    function getBaseUrl(node, expand, child) {
         let url = `${self.url}`;
-        url += `${node}`;
+        if (node) {
+            url += `${node}`;
+        }
+        if (expand) {
+            url += `?expand=${child}`;
+        }
         return url;
     };
     
-    getUrl = function(node, filter, options) {
+    function getUrl(node, filter, options) {
         const pattern = { node, filter };
-        const { limit, totalResults, onlyData, finder } = options;
+        const { limit, totalResults, onlyData, finder, expand, child } = options;
         
         let url = `${self.url}`;
         if (pattern.filter && pattern.filter.length > 0) {
@@ -36,6 +41,9 @@ define(['./../data/server'], function(server) {
            }
         } else {
             url += `${pattern.node}?limit=${limit}&totalResults=${totalResults}&onlyData=${onlyData}`;
+        }
+        if (expand) {
+            url += `&expand=${child}`;
         }
         
         return url;

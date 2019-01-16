@@ -1,10 +1,14 @@
 define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     
-    getLocUrl = function(locationInput) {
+    function getUrl(locationInput) {
         return urlhelper.getUrl('locations', locationInput, locationParams);
     };
     
-    parseLoc = function(response) {
+    function getBaseUrl() {
+        return urlhelper.getBaseUrl('locations', null, null);
+    };
+    
+    function parseLoc(response) {
         return {
             'City': response.City,
             'StateProvince': response.StateProvince,
@@ -14,7 +18,7 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     };
     
     // Location Model
-    getLocationModel = function() {
+    function getLocationModel() {
         const LocationModel = crud.getModel({
             urlRoot: getBaseUrl(),
             parse: parseLoc,
@@ -24,9 +28,9 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     };
     
     // Location Collection
-    getLocationCollection = function(locationInput) {
+    function getLocationCollection(locationInput) {
         const LocationCollection = crud.getCollection({
-            url: getLocUrl(locationInput),
+            url: getUrl(locationInput),
             fetchSize: locationParams.limit,
             model: getLocationModel(locationInput)
         });
@@ -38,10 +42,11 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
         pageSize: 5,
         totalResults: true,
         onlyData: true,
-        finder: 'SearchLocations'
+        finder: 'SearchLocations',
+        expand: false
     };
     
-    const locationColumns = [{"headerText": "City",  "renderer": oj.KnockoutTemplateUtils.getRenderer("loc_name", true), },
+    const locationColumns = [{"headerText": "City",  "renderer": oj.KnockoutTemplateUtils.getRenderer("loc_name", true) },
             {"headerText": "State/Province", "field": "StateProvince"},
             {"headerText": "Postal Code", "field": "PostalCode"}];
     
