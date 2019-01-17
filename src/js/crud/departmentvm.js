@@ -8,6 +8,10 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
         return urlhelper.getBaseUrl('departments', departmentParams.expand, departmentParams.child);
     };
     
+    function getChildAccessorUrl(child, departmentId) {
+        return urlhelper.getChildUrl('departments', departmentId, child, departmentParams);
+    }
+    
     parseDept = function(response) {
         return {
             'DepartmentId': response.DepartmentId,
@@ -62,7 +66,8 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
         departmentParams,
         departmentColumns,
         getDepartmentModel,
-        getDepartmentCollection
+        getDepartmentCollection,
+        getChildAccessorUrl
     };
     
 });

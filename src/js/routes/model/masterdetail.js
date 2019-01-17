@@ -44,15 +44,17 @@ function(oj, ko, $, tableutils, dept, emp) {
             self.deptDataSource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.deptData())));
         };
         
-        self.fetchEmps = function(EmployeesVO) {
-            self.empDataSource(new oj.PagingTableDataSource(new oj.ArrayTableDataSource(EmployeesVO)));
+        self.fetchEmps = function(childAccessorUrl) {
+            const employeeAccessorCollection = emp.getChildAccessorCollection(childAccessorUrl);
+            self.empDataSource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(employeeAccessorCollection)));
         };
         
         self.deptSelection = function(event, table) {
             Promise.all(tableutils.getSelectionData(table, event, self.deptDataSource())).then(selectionData => {
-                const { DepartmentName, EmployeesVO } = selectionData[0]['data'];
-                self.fetchEmps(EmployeesVO);
-                self.selectedDept(DepartmentName);               
+                const { DepartmentId, DepartmentName } = selectionData[0]['data'];
+                self.selectedDept(DepartmentName);
+                const childAccessorUrl = dept.getChildAccessorUrl('EmployeesVO', DepartmentId);
+                self.fetchEmps(childAccessorUrl);
             }).catch(err => console.log(err));
         };
         

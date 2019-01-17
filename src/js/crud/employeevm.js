@@ -8,6 +8,15 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
         return urlhelper.getBaseUrl('employeesauth', null, null);
     };
     
+    function getChildAccessorCollection(url) {
+        const EmployeeCollection = crud.getCollection({
+            url,
+            fetchSize: employeeParams.limit,
+            model: getEmployeeModel()
+        });
+        return new EmployeeCollection();
+    }
+    
     function parseEmpl(response) {
         return {
             'EmployeeId': response.EmployeeId,
@@ -43,8 +52,8 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     };
     
     const employeeParams = {
-        limit: 6,
-        pageSize: 6,
+        limit: 5,
+        pageSize: 5,
         totalResults: true,
         onlyData: true,
         expand: false
@@ -77,7 +86,8 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
         employeeColumns,
         employeeActionColumns,
         getEmployeeModel,
-        getEmployeeCollection
+        getEmployeeCollection,
+        getChildAccessorCollection
     };
     
 });

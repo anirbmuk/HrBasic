@@ -49,9 +49,32 @@ define(['data/server'], function(server) {
         return url;
     };
     
+    function getChildUrl(node, filter, child, options) {
+        const pattern = { node, filter };
+        const { limit, totalResults, onlyData } = options;
+        
+        let url = `${self.url}`;
+        if (!pattern.node) {
+            return null;
+        }
+        url += `${pattern.node}`;
+        if (pattern.filter) {
+            url += `/${pattern.filter}`;
+        }
+        if (child) {
+            url += `/child/${child}`;
+        }
+        url += `?limit=${limit}&totalResults=${totalResults}&onlyData=${onlyData}`;
+        console.log(url);
+        
+        return url;
+        
+    };
+    
     return {
         getBaseUrl,
-        getUrl
+        getUrl,
+        getChildUrl
     };
     
 });
