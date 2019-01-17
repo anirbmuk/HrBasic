@@ -10,7 +10,7 @@ define(['ojs/ojcore', 'knockout', 'data/server', 'ojs/ojknockout', 'ojs/ojnaviga
       self.appName = ko.observable("JET HR Basic");
       self.userLogin = ko.observable("anirban.m.mukherjee@oracle.com");
       
-      server.setServerModel('127.0.0.1', 10101, 'hr/rest/v1/');
+      server.setServerModel('127.0.0.1', 7101, 'hr/rest/v1/');
       
       oj.Router.defaults['urlAdapter'] = new oj.Router.urlParamAdapter();
       self.router = oj.Router.rootInstance;

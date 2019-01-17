@@ -65,7 +65,6 @@ define(['data/server'], function(server) {
             url += `/child/${child}`;
         }
         url += `?limit=${limit}&totalResults=${totalResults}&onlyData=${onlyData}`;
-        console.log(url);
         
         return url;
         
