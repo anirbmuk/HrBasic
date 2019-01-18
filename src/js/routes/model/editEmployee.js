@@ -127,7 +127,7 @@ function(oj, ko, $, emp, messageutils, dateutils) {
                 error: function(jqXHR, textStatus, errorThrown) {
                     self.messages(messageutils.buildMessage('error', {
                             msgSummary: 'Error',
-                            msgDetail: 'Failed to update employee'
+                            msgDetail: jqXHR.responseText 
                     }, self.confirmationMessageTimeout()));
                 }
             });
@@ -135,7 +135,6 @@ function(oj, ko, $, emp, messageutils, dateutils) {
         
         self.saveTransaction = function() {
             const tracker = $("#tracker")[0];
-            console.log(tracker.valid);
             if (tracker && tracker.valid === 'valid') {
                 const employee = self.EmployeeModel().attributes;
                 let collection;
