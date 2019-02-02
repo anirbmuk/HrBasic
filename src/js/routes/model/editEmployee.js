@@ -1,5 +1,5 @@
 define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/messageutils', 'common/utils/dateutils',
-       'ojs/ojinputnumber', 'ojs/ojdatetimepicker', 'ojs/ojvalidationgroup'],
+       'ojs/ojinputnumber', 'ojs/ojdatetimepicker', 'ojs/ojvalidationgroup', 'ojs/ojswitch'],
 function(oj, ko, $, emp, messageutils, dateutils) {
     
     function EditEmployeeModel() {

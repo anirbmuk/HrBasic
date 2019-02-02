@@ -86,6 +86,14 @@
                         <oj-input-number id="deptid" value="{{attributes.DepartmentId}}" required step='10' min='0' clear-icon="conditional"></oj-input-number>
                     </div>
                 </div>
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="statusflag" show-required="true">Status</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-switch id="statusflag" value="{{attributes.ActiveFlag}}" required ></oj-switch>
+                    </div>
+                </div>
             </div>
         </div>
     </oj-validation-group>

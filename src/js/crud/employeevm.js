@@ -26,7 +26,8 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
             'JobId': response.JobId,
             'HireDate': response.HireDate,
             'Salary': response.Salary,
-            'DepartmentId': response.DepartmentId
+            'DepartmentId': response.DepartmentId,
+            'ActiveFlag': response.ActiveFlag
         };
     };
     
