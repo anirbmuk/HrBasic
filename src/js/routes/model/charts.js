@@ -49,7 +49,10 @@ function(oj, ko, $, chart, dept, emp) {
             child: 'EmployeesVO'
         };
         
-        self.barGroupsValue = ko.observableArray(["Employees"]);
+        self.barGroupsValue = ko.observableArray([]);
+        
+        const converterFactory = oj.Validation.converterFactory('number');
+        self.currencyConverter = converterFactory.createConverter({style: 'currency', currency: 'USD', maximumFractionDigits: 1});
         
         self.fetchEmps = function(DepartmentId) {
             const childAccessorUrl = dept.getChildAccessorUrl('EmployeesVO', DepartmentId, self.deptParams);
@@ -77,15 +80,14 @@ function(oj, ko, $, chart, dept, emp) {
         self.resolveChildPieData = function(pieData) {
             if (pieData.models && pieData.models.length >= 0) {
                 const pieArray = [];
+                const groupArray = [];
                 pieData.models.forEach(function(item) {
                    const salaryData = item.attributes;
-                   const pieModel = {
-                       'name': salaryData.EmployeeId,
-                       'items': [{id: salaryData.EmployeeId, value: salaryData.Salary}]
-                   };
-                   pieArray.push(pieModel);
+                   groupArray.push(salaryData.FirstName);
+                   pieArray.push(salaryData.Salary);
                 });
-                self.childPieSeriesValue(pieArray);
+                self.childPieSeriesValue([{name: 'Salary', items: pieArray}]);
+                self.barGroupsValue(groupArray);
             }
         };
         
