@@ -1,64 +1,66 @@
 <div class="oj-hybrid-padding">
     <h1 data-bind="text: heading"></h1>
     <hr>
-    <div class="oj-panel oj-margin oj-panel-alt2">
-        <div id="form-container" class="oj-form-layout">
-            <div class="oj-sm-labels-inline">
-                <div class="oj-form oj-flex">
-                    <div class="oj-flex-item">
-    <oj-label for="threeDFlag">3D</oj-label>
-</div>
-<div class="oj-flex-item">
-    <oj-switch id="threeDFlag" value="{{threeDEffect}}"></oj-switch>
+    <oj-refresher id="refresher" refresh-content="[[updateChart]]" text="Fetching latest data...">
+        <div class="oj-panel oj-margin oj-panel-alt2">
+            <div id="form-container" class="oj-form-layout">
+                <div class="oj-sm-labels-inline">
+                    <div class="oj-form oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="threeDFlag">3D</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-switch id="threeDFlag" value="{{threeDEffect}}"></oj-switch>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="oj-flex">
-        <div id="pieContainer" class="oj-flex-item">
-            <oj-chart id="pieChart"
-                type="pie" 
-                series="[[pieSeriesValue]]"
-                selection-mode="single"
-                selection="{{selectionValue}}"
-                animation-on-display="auto"
-                animation-on-data-change="auto"
-                style-defaults.three-d-effect="[[threeDValue]]"
-                style-defaults.data-label-position="center"
-                hover-behavior="dim"
-                style="max-width:500px;width:100%;height:350px;">
-            </oj-chart>
-        </div>
-        <div id="pieContainer" class="oj-flex-item">
-            <oj-bind-if test="showChild">
-                <oj-chart id="barChart"
-                        type="bar"
-                        orientation="vertical"
-                        stack="off"
-                        x-axis="{}"
-                        y-axis.tick-label.converter="[[currencyConverter]]"
-                        series="[[childPieSeriesValue]]"
-                        groups="[[barGroupsValue]]"
-                        zoom-and-scroll="live"
-                        overview.rendered="on"
-                        overview.height="20%"
-                        overview.content='{"type":"area"}'
-                        legend.rendered="off"
-                        data-cursor="on"
-                        initial-zooming="first"
-                        animation-on-display="auto"
-                        animation-on-data-change="auto"
-                        style-defaults.three-d-effect="[[threeDValue]]"
-                        value-formats.series.tooltip-display="off"
-                        value-formats.group.tooltip-label="Employee"
-                        value-formats.value.tooltip-label="Salary"
-                        style-defaults.data-label-position="center"
-                        hover-behavior="dim"
-                        style="width:90%;height:365px;display:inline-block;vertical-align:top;">
+        <div class="oj-flex">
+            <div id="pieContainer" class="oj-flex-item oj-sm-justify-content-center">
+                <oj-chart id="pieChart"
+                          type="pie" 
+                          series="[[pieSeriesValue]]"
+                          selection-mode="single"
+                          selection="{{selectionValue}}"
+                          animation-on-display="auto"
+                          animation-on-data-change="auto"
+                          style-defaults.three-d-effect="[[threeDValue]]"
+                          style-defaults.data-label-position="center"
+                          value-formats.series.tooltip-label="Department"
+                          value-formats.value.tooltip-label="Salary"
+                          hover-behavior="dim"
+                          legend.rendered="off">
+                </oj-chart>
+            </div>
+            <div id="pieContainer" class="oj-flex-item">
+                <oj-bind-if test="showChild">
+                    <oj-chart id="barChart"
+                              type="bar"
+                              orientation="vertical"
+                              stack="off"
+                              x-axis="{}"
+                              y-axis.tick-label.converter="[[currencyConverter]]"
+                              series="[[childPieSeriesValue]]"
+                              groups="[[barGroupsValue]]"
+                              zoom-and-scroll="live"
+                              overview.rendered="on"
+                              overview.height="20%"
+                              overview.content='{"type":"area"}'
+                              legend.rendered="off"
+                              data-cursor="on"
+                              initial-zooming="first"
+                              animation-on-display="auto"
+                              animation-on-data-change="auto"
+                              style-defaults.three-d-effect="[[threeDValue]]"
+                              value-formats.series.tooltip-display="off"
+                              value-formats.group.tooltip-label="Employee"
+                              value-formats.value.tooltip-label="Salary"
+                              style-defaults.data-label-position="center"
+                              hover-behavior="dim">
                     </oj-chart>
-            </oj-bind-if>
+                </oj-bind-if>
+            </div>
         </div>
-    </div>
-    
+    </oj-refresher>
 </div>

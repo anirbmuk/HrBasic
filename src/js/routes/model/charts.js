@@ -5,7 +5,8 @@ define(['ojs/ojcore',
         'crud/departmentvm',
         'crud/employeevm',
        'ojs/ojswitch',
-       'ojs/ojchart'],
+       'ojs/ojchart',
+       'ojs/ojrefresher'],
 function(oj, ko, $, chart, dept, emp) {
     
     function ChartModel() {
@@ -92,12 +93,20 @@ function(oj, ko, $, chart, dept, emp) {
         };
         
         self.connected = function() {
+            self.showChild(false);
+            self.selectionValue(null);
             chart.getSalaryDistCollection(self.salaryDistParams).fetch({
                 success: self.resolvePieData,
                 error: function(err) {
                     console.log(err);
                     self.pieSeriesValue([]);
                 }
+            });
+        };
+        
+        self.updateChart = function() {
+            return new Promise(function(resolve, reject) {
+                resolve(self.connected());
             });
         };
         
