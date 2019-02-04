@@ -25,7 +25,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/locationvm', 'common/utils/tab
         self.LocationData = ko.observable();
 
         self.locationColumns = location.locationColumns;
-        self.locationParams = ko.observable(location.locationParams);
         
         self.selected = ko.observable();
         
@@ -37,11 +36,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/locationvm', 'common/utils/tab
                 'row': self.selectionMode()
             };
         }, self);
+        
+        self.locationParams = {
+            limit: 5,
+            pageSize: 5,
+            totalResults: true,
+            onlyData: true,
+            finder: 'SearchLocations',
+            expand: false
+        };
 
         self.locationSearch = function () {
             const locationSearchObject = [{ key: 'Bind_countryid', value: self.countryIdInput() },
                                           { key: 'Bind_city', value: self.cityInput() }];
-            self.LocationData(location.getLocationCollection(locationSearchObject));
+            self.LocationData(location.getLocationCollection(locationSearchObject, self.locationParams));
             self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.LocationData())));
         };
         

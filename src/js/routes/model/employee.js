@@ -15,6 +15,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/dat
         self.employeeParams = ko.observable(emp.employeeParams);
         self.pagingDatasource = ko.observable(new oj.PagingTableDataSource(new oj.ArrayTableDataSource([])));
         
+        self.employeeParams = {
+            limit: 5,
+            pageSize: 5,
+            totalResults: true,
+            onlyData: true,
+            expand: false
+        };
+        
         self.init = function() {
             const initialized = self.initialized();
             
@@ -22,7 +30,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/dat
             const edited = (routerParams ? (routerParams.edited ? routerParams.edited : false) : false);
             
             if (!initialized || edited) {
-                self.EmployeeData(emp.getEmployeeCollection());
+                self.EmployeeData(emp.getEmployeeCollection(self.employeeParams));
                 self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.EmployeeData())));
                 self.initialized(true);
             }
@@ -55,7 +63,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/dat
             model.id = employeeId;
             self.EmployeeData().get(model).then(employeeModel => {
                 employeeModel.destroy({ wait: true });
-                self.EmployeeData(emp.getEmployeeCollection());
+                self.EmployeeData(emp.getEmployeeCollection(self.employeeParams));
                 self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.EmployeeData())));
             });
         };

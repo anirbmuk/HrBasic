@@ -27,7 +27,7 @@
         </div>
     </div>
     <hr-table id="deptstable" aria-label="Departments" tabular-data='[[pagingDatasource]]' data-columns='[[departmentColumns]]' 
-              page-size="[[departmentParams().pageSize]]" on-selection='{{departmentSelection}}'
+              page-size="[[departmentParams.pageSize]]" on-selection='{{departmentSelection}}'
               selection-type="[[selectionType]]"></hr-table>
     <hr>
     <oj-bind-if test="[[selected]]"><span>Selected: <oj-bind-text value='[[selected]]'></oj-bind-text></span></oj-bind-if>

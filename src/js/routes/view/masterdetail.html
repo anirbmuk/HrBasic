@@ -5,14 +5,14 @@
         <div class="oj-flex-item">
             <h2 data-bind="text: heading01"></h2>
             <hr-table id="deptstable" aria-label="Departments" tabular-data='[[deptDataSource]]' data-columns='[[deptColumns]]' 
-              page-size="[[deptParams().pageSize]]" on-selection='{{deptSelection}}'
+              page-size="[[deptParams.pageSize]]" on-selection='{{deptSelection}}'
               selection-type="[[deptSelectionType]]"></hr-table>
         </div>
         <div class="oj-margin"></div>
         <div class="oj-flex-item">
             <h2 data-bind="text: heading02"></h2>
             <hr-table id="empstable" aria-label="Employees" tabular-data='[[empDataSource]]' data-columns='[[empColumns]]' 
-              page-size="[[empParams().pageSize]]" on-selection='{{empSelection}}'
+              page-size="[[empParams.pageSize]]" on-selection='{{empSelection}}'
               selection-type="[[empSelectionType]]"></hr-table>
         </div>
     </div>

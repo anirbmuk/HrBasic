@@ -17,11 +17,11 @@ define(['data/server'], function(server) {
     
     function getUrl(node, filter, options) {
         const pattern = { node, filter };
-        const { limit, totalResults, onlyData, finder, expand, child } = options;
+        const { totalResults, onlyData, finder, expand, child } = options;
         
         let url = `${self.url}`;
         if (pattern.filter && pattern.filter.length > 0) {
-           url += `${pattern.node}?limit=${limit}&totalResults=${totalResults}&onlyData=${onlyData}`;
+           url += `${pattern.node}?totalResults=${totalResults}&onlyData=${onlyData}`;
            let finderAdded = false, itemAdded = false;
            for (const item of pattern.filter) {
                if (item.value) {
@@ -40,7 +40,7 @@ define(['data/server'], function(server) {
                }
            }
         } else {
-            url += `${pattern.node}?limit=${limit}&totalResults=${totalResults}&onlyData=${onlyData}`;
+            url += `${pattern.node}?totalResults=${totalResults}&onlyData=${onlyData}`;
         }
         if (expand) {
             url += `&expand=${child}`;
@@ -51,7 +51,7 @@ define(['data/server'], function(server) {
     
     function getChildUrl(node, filter, child, options) {
         const pattern = { node, filter };
-        const { limit, totalResults, onlyData } = options;
+        const { totalResults, onlyData } = options;
         
         let url = `${self.url}`;
         if (!pattern.node) {
@@ -64,7 +64,7 @@ define(['data/server'], function(server) {
         if (child) {
             url += `/child/${child}`;
         }
-        url += `?limit=${limit}&totalResults=${totalResults}&onlyData=${onlyData}`;
+        url += `?totalResults=${totalResults}&onlyData=${onlyData}`;
         
         return url;
         

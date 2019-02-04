@@ -45,10 +45,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/departmentvm', 'common/utils/t
                 "ManagerId": self.mManagerId()
             };
         });
+        
+        self.departmentParams = {
+            limit: 5,
+            pageSize: 5,
+            totalResults: true,
+            onlyData: true,
+            finder: 'SearchDepartments',
+            expand: true,
+            child: 'EmployeesVO'
+        };
 
         self.departmentSearch = function () {
             const departmentSearchObject = [{ key: 'Bind_departmentname', value: self.departmentNameInput() }];
-            self.DepartmentData(department.getDepartmentCollection(departmentSearchObject));
+            self.DepartmentData(department.getDepartmentCollection(departmentSearchObject, self.departmentParams));
             self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.DepartmentData())));
         };
         
@@ -93,7 +103,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/departmentvm', 'common/utils/t
         self.createDepartment = function() {
             const currentDepartment = self.currentDepartment();
             const departmentSearchObject = [{ key: 'Bind_departmentname', value: self.departmentNameInput() }];
-            self.DepartmentData(department.getDepartmentCollection(departmentSearchObject));
+            self.DepartmentData(department.getDepartmentCollection(departmentSearchObject, self.departmentParams));
             
             self.DepartmentData().create(currentDepartment, {
                 contentType: "application/vnd.oracle.adf.resourceitem+json",

@@ -16,15 +16,29 @@ function(oj, ko, $, tableutils, dept, emp) {
         self.empSelectionType = { row: 'single', column: 'none' };
         self.empData = ko.observable();
         self.empColumns = emp.employeeColumns;
-        self.empParams = ko.observable(emp.employeeParams);
         self.empDataSource = ko.observable(new oj.PagingTableDataSource(new oj.ArrayTableDataSource([])));
+        self.empParams = {
+            limit: 5,
+            pageSize: 5,
+            totalResults: true,
+            onlyData: true,
+            expand: false
+        };
         
         self.deptSelectionType = { row: 'single', column: 'none' };
         self.deptData = ko.observable();
         self.deptColumns = dept.departmentColumns;
-        self.deptParams = ko.observable(dept.departmentParams);
         self.deptDataSource = ko.observable(new oj.PagingTableDataSource(new oj.ArrayTableDataSource([])));
         self.selectedDept = ko.observable();
+        self.deptParams = {
+            limit: 5,
+            pageSize: 5,
+            totalResults: true,
+            onlyData: true,
+            finder: 'SearchDepartments',
+            expand: true,
+            child: 'EmployeesVO'
+        };
         
         self.heading0 = 'Master Detail View';
         self.heading01 = 'Departments';
@@ -40,12 +54,12 @@ function(oj, ko, $, tableutils, dept, emp) {
         
         self.fetchDepts = function() {
             const deptSearchObject = [{ key: 'Bind_departmentname', value: '' }];
-            self.deptData(dept.getDepartmentCollection(deptSearchObject));
+            self.deptData(dept.getDepartmentCollection(deptSearchObject, self.deptParams));
             self.deptDataSource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.deptData())));
         };
         
         self.fetchEmps = function(childAccessorUrl) {
-            const employeeAccessorCollection = emp.getChildAccessorCollection(childAccessorUrl);
+            const employeeAccessorCollection = emp.getChildAccessorCollection(childAccessorUrl, self.empParams);
             self.empDataSource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(employeeAccessorCollection)));
         };
         
@@ -53,7 +67,7 @@ function(oj, ko, $, tableutils, dept, emp) {
             Promise.all(tableutils.getSelectionData(table, event, self.deptDataSource())).then(selectionData => {
                 const { DepartmentId, DepartmentName } = selectionData[0]['data'];
                 self.selectedDept(DepartmentName);
-                const childAccessorUrl = dept.getChildAccessorUrl('EmployeesVO', DepartmentId);
+                const childAccessorUrl = dept.getChildAccessorUrl('EmployeesVO', DepartmentId, self.deptParams);
                 self.fetchEmps(childAccessorUrl);
             }).catch(err => console.log(err));
         };

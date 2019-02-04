@@ -25,7 +25,7 @@
         </div>
     </div>
     <hr-table aria-label="Locations" tabular-data='[[pagingDatasource]]' data-columns='[[locationColumns]]' 
-              page-size="[[locationParams().pageSize]]" on-selection='{{locationSelection}}'
+              page-size="[[locationParams.pageSize]]" on-selection='{{locationSelection}}'
               selection-type="[[selectionType]]"></hr-table>
     <hr>
     <oj-bind-if test="[[selected]]"><span>Selected: <oj-bind-text value='[[selected]]'></oj-bind-text></span></oj-bind-if>

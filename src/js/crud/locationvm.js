@@ -1,6 +1,6 @@
 define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     
-    function getUrl(locationInput) {
+    function getUrl(locationInput, locationParams) {
         return urlhelper.getUrl('locations', locationInput, locationParams);
     };
     
@@ -28,22 +28,13 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     };
     
     // Location Collection
-    function getLocationCollection(locationInput) {
+    function getLocationCollection(locationInput, locationParams) {
         const LocationCollection = crud.getCollection({
-            url: getUrl(locationInput),
+            url: getUrl(locationInput, locationParams),
             fetchSize: locationParams.limit,
             model: getLocationModel(locationInput)
         });
         return new LocationCollection();
-    };
-    
-    const locationParams = {
-        limit: 5,
-        pageSize: 5,
-        totalResults: true,
-        onlyData: true,
-        finder: 'SearchLocations',
-        expand: false
     };
     
     const locationColumns = [{"headerText": "City",  "renderer": oj.KnockoutTemplateUtils.getRenderer("loc_name", true) },
@@ -51,7 +42,6 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
             {"headerText": "Postal Code", "field": "PostalCode"}];
     
     return {
-        locationParams,
         locationColumns,
         getLocationCollection
     };

@@ -1,6 +1,6 @@
 define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     
-    function getUrl() {
+    function getUrl(employeeParams) {
         return urlhelper.getUrl('employeesauth', null, employeeParams);
     };
     
@@ -8,7 +8,7 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
         return urlhelper.getBaseUrl('employeesauth', null, null);
     };
     
-    function getChildAccessorCollection(url) {
+    function getChildAccessorCollection(url, employeeParams) {
         const EmployeeCollection = crud.getCollection({
             url,
             fetchSize: employeeParams.limit,
@@ -43,21 +43,13 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     };
     
     // Employee Collection
-    function getEmployeeCollection() {
+    function getEmployeeCollection(employeeParams) {
         const EmployeeCollection = crud.getCollection({
-            url: getUrl(),
+            url: getUrl(employeeParams),
             fetchSize: employeeParams.limit,
             model: getEmployeeModel()
         });
         return new EmployeeCollection();
-    };
-    
-    const employeeParams = {
-        limit: 5,
-        pageSize: 5,
-        totalResults: true,
-        onlyData: true,
-        expand: false
     };
     
 //    const departmentColumns = [{"headerText": "Department", "renderer": oj.KnockoutTemplateUtils.getRenderer("dept_name", true) },
@@ -83,7 +75,6 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
             { "headerText": "Department", "field": "DepartmentId"}];
     
     return {
-        employeeParams,
         employeeColumns,
         employeeActionColumns,
         getEmployeeModel,

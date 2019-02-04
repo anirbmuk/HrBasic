@@ -1,14 +1,14 @@
 define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     
-    function getUrl(departmentInput) {
+    function getUrl(departmentInput, departmentParams) {
         return urlhelper.getUrl('departments', departmentInput, departmentParams);
     };
     
     function getBaseUrl() {
-        return urlhelper.getBaseUrl('departments', departmentParams.expand, departmentParams.child);
+        return urlhelper.getBaseUrl('departments', null, null);
     };
     
-    function getChildAccessorUrl(child, departmentId) {
+    function getChildAccessorUrl(child, departmentId, departmentParams) {
         return urlhelper.getChildUrl('departments', departmentId, child, departmentParams);
     }
     
@@ -34,23 +34,13 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
     };
     
     // Department Collection
-    function getDepartmentCollection(departmentInput) {
+    function getDepartmentCollection(departmentInput, departmentParams) {
         const DepartmentCollection = crud.getCollection({
-            url: getUrl(departmentInput),
+            url: getUrl(departmentInput, departmentParams),
             fetchSize: departmentParams.limit,
             model: getDepartmentModel()
         });
         return new DepartmentCollection();
-    };
-    
-    const departmentParams = {
-        limit: 5,
-        pageSize: 5,
-        totalResults: true,
-        onlyData: false,
-        finder: 'SearchDepartments',
-        expand: true,
-        child: 'EmployeesVO'
     };
     
 //    const departmentColumns = [{"headerText": "Department", "renderer": oj.KnockoutTemplateUtils.getRenderer("dept_name", true) },
@@ -63,7 +53,6 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
             {"headerText": "Manager Id", "field": "ManagerId"}];
     
     return {
-        departmentParams,
         departmentColumns,
         getDepartmentModel,
         getDepartmentCollection,
