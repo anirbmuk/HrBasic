@@ -1,5 +1,5 @@
 define(['ojs/ojcore', 'knockout', 'jquery', 'crud/employeevm', 'common/utils/messageutils', 'common/utils/dateutils',
-       'ojs/ojinputnumber', 'ojs/ojdatetimepicker', 'ojs/ojvalidationgroup', 'ojs/ojswitch'],
+       'ojs/ojinputnumber', 'ojs/ojdatetimepicker', 'ojs/ojvalidationgroup', 'ojs/ojswitch', 'ojs/ojfilepicker', 'ojs/ojavatar'],
 function(oj, ko, $, emp, messageutils, dateutils) {
     
     function EditEmployeeModel() {
@@ -21,8 +21,17 @@ function(oj, ko, $, emp, messageutils, dateutils) {
         self.errorMessageTimeout = ko.observable('5000');
         
         self.dateConverter = ko.observable(dateutils.getConverter('dd-MMM-yyyy'));
+        self.avatarUrl = ko.observable('');
+        self.avatarInitials = ko.observable();
         
         self.employeeValid = ko.observable();
+        self.employeeParams = {
+            limit: 5,
+            pageSize: 5,
+            totalResults: true,
+            onlyData: true,
+            expand: false
+        };
         
         self.init = function() {
             
@@ -60,13 +69,15 @@ function(oj, ko, $, emp, messageutils, dateutils) {
                 model.fetch({
                     success: function(employeeModel) {
                         self.EmployeeModel(employeeModel);
+                        self.avatarInitials(oj.IntlConverterUtils.getInitials(employeeModel.attributes.FirstName, employeeModel.attributes.LastName));
+                        self.getProfileImage(employeeId);
                     },
                     error: function(err) {
                         console.log(err);
                     }
                 });
             } else {
-                self.EmployeeData(emp.getEmployeeCollection());
+                self.EmployeeData(emp.getEmployeeCollection(self.employeeParams));
                 self.EmployeeModel(model);
             }
             
@@ -77,6 +88,17 @@ function(oj, ko, $, emp, messageutils, dateutils) {
                 
             }
         ];
+        
+        self.getProfileImage = function(employeeId) {
+            const profileImageUrl = emp.getProfileImage(employeeId);
+            const successCallback = function() {
+                self.avatarUrl(profileImageUrl);
+            };
+            const errorCallback = function(jqXHR, textStatus, errorThrown) {
+                self.avatarUrl('');
+            };
+            emp.getRestData(profileImageUrl, null, successCallback, errorCallback);
+        };
         
         self.cancelTransaction = function() {
             self.routeInstance().store();
@@ -90,46 +112,45 @@ function(oj, ko, $, emp, messageutils, dateutils) {
             self.routeInstance().go("employee");
         };
         
+        self.successCallback = function(successMessage) {
+            return function (result,status,xhr) {
+                self.messages(messageutils.buildMessage('confirmation', {
+                        msgSummary: 'Success',
+                        msgDetail: successMessage
+                }, self.confirmationMessageTimeout()));
+                setTimeout(function() {
+                    self.refreshTransaction(true);
+                }, self.confirmationMessageTimeout());
+            };
+        };
+        
+        self.errorCallback = function() {
+            return function(jqXHR, textStatus, errorThrown) {
+                self.messages(messageutils.buildMessage('error', {
+                        msgSummary: 'Error',
+                        msgDetail: jqXHR.responseText
+                }, self.confirmationMessageTimeout()));
+            };
+        };
+        
         self.createEmployee = function(collection, employee) {
+            const success = self.successCallback('One employee created');
+            const error = self.errorCallback();
             collection.create(employee, {
                 contentType: 'application/vnd.oracle.adf.resourceitem+json',
-                success: function (response) {
-                    self.messages(messageutils.buildMessage('confirmation', {
-                            msgSummary: 'Success',
-                            msgDetail: 'One employee created'
-                    }, self.confirmationMessageTimeout()));
-                    setTimeout(function() {
-                        self.refreshTransaction(true);
-                    }, self.confirmationMessageTimeout());
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    self.messages(messageutils.buildMessage('error', {
-                            msgSummary: 'Failed to create employee',
-                            msgDetail: jqXHR.responseText
-                    }, self.confirmationMessageTimeout()));
-                }
+                success,
+                error
             });
         };
         
         self.editEmployee = function(collection, employee) {
+            const success = self.successCallback('One employee updated');
+            const error = self.errorCallback();
             collection.save(employee, {
                 contentType: 'application/vnd.oracle.adf.resourceitem+json',
                 patch: 'patch',
-                success: function (response) {
-                    self.messages(messageutils.buildMessage('confirmation', {
-                            msgSummary: 'Success',
-                            msgDetail: 'One employee updated'
-                    }, self.confirmationMessageTimeout()));
-                    setTimeout(function() {
-                        self.refreshTransaction(true);
-                    }, self.confirmationMessageTimeout());
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    self.messages(messageutils.buildMessage('error', {
-                            msgSummary: 'Error',
-                            msgDetail: jqXHR.responseText 
-                    }, self.confirmationMessageTimeout()));
-                }
+                success,
+                error
             });
         };
         
@@ -149,6 +170,37 @@ function(oj, ko, $, emp, messageutils, dateutils) {
                 tracker.showMessages();
                 tracker.focusOn("@firstInvalidShown");
             }
+        };
+        
+        self.uploadEmployeeImage = function(event) {
+            if (event.detail) {
+                const uploadedFile = event.detail.files[0];
+                const base64File = self.getBase64(uploadedFile).then(function(data) {
+                    if (data) {
+                        const image = JSON.stringify({ "ProfileImage": data.split(',')[1] });
+                        const collection = self.EmployeeModel();
+                        const url = `${collection.urlRoot}/${collection.id}`;
+                        const success = function (result,status,xhr) {
+                                            self.messages(messageutils.buildMessage('confirmation', {
+                                                    msgSummary: 'Success',
+                                                    msgDetail: `Profile image uploaded for employee id ${collection.id}`
+                                            }, self.confirmationMessageTimeout()));
+                                            self.avatarUrl(emp.getProfileImage(collection.id));
+                                        };
+                        const error = self.errorCallback();
+                        emp.saveBlobData(url, image, success, error);
+                    }
+                });
+            }
+        };
+        
+        self.getBase64 = function(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
         };
         
     };

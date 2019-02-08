@@ -4,9 +4,10 @@ define(['ojs/ojcore',
         'crud/chartmodelvm',
         'crud/departmentvm',
         'crud/employeevm',
-       'ojs/ojswitch',
-       'ojs/ojchart',
-       'ojs/ojrefresher'],
+        'ojs/ojswitch',
+        'ojs/ojchart',
+        'ojs/ojrefresher',
+        'ojs/ojbutton'],
 function(oj, ko, $, chart, dept, emp) {
     
     function ChartModel() {
@@ -18,7 +19,9 @@ function(oj, ko, $, chart, dept, emp) {
         self.threeDValue = ko.computed(function() {
             return self.threeDEffect() ? 'on' : 'off';
         }, self);
+        self.innerRadius = ko.observable(0);
         self.showChild = ko.observable(false);
+        self.pieType = ko.observable('pie');
         
         self.pieSeriesValue = ko.observableArray([]);
         self.childPieSeriesValue = ko.observableArray([]);
@@ -31,6 +34,10 @@ function(oj, ko, $, chart, dept, emp) {
            } else {
                self.showChild(false);
            }
+        });
+        self.pieType.subscribe(function(val) {
+            console.log(val);
+            self.changeChart();
         });
         
         self.salaryDistParams = {
@@ -108,6 +115,18 @@ function(oj, ko, $, chart, dept, emp) {
             return new Promise(function(resolve, reject) {
                 resolve(self.connected());
             });
+        };
+        
+        self.changeChart = function() {
+            $("#pieChart").fadeOut(100, function() {
+                const innerRadius = self.innerRadius();
+                if (innerRadius > 0) {
+                    self.innerRadius(0);
+                } else {
+                    self.innerRadius(0.5);
+                }
+            });
+            $("#pieChart").fadeIn(500);
         };
         
     };

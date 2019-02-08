@@ -17,15 +17,13 @@
 </div>
 <script type="text/html" id="empl_ops">
     <td>
-        <button id="editemp1" data-bind="click: function() {$parent.editEmployee($context.row.EmployeeId) }, ojComponent: {component: 'ojButton',
-                                                                                          display: 'icons', 
-                                                                                          icons: {end: 'oj-fwk-icon-caret-end oj-fwk-icon'},
-                                                                                          label: 'Edit'}"></button>
-        <button id="delemp1" data-bind="click: function() {$parent.deleteEmployee($context.row.EmployeeId) }, ojComponent: {component: 'ojButton',
-                                                                                          display: 'icons', 
-                                                                                          icons: {end: 'demo-garbage-icon-24 demo-icon-font-24'},
-                                                                                          label: 'Edit'}"></button>
-    </td>
+        <oj-button on-oj-action="[[function() {$parent.editEmployee($context.row.EmployeeId)}]]">
+            <span slot='endIcon' class='oj-fwk-icon-caret-end oj-fwk-icon'></span>
+        </oj-button>
+        <oj-button on-oj-action="[[function() {$parent.deleteEmployee($context.row.EmployeeId) }]]">
+            <span slot='endIcon' class='demo-garbage-icon-24 demo-icon-font-24'></span>
+        </oj-button>
+</td>
 </script>
 <script type="text/html" id="empl_date">
     <td>

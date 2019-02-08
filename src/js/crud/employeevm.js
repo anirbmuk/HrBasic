@@ -52,6 +52,18 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
         return new EmployeeCollection();
     };
     
+    function getRestData(url, data, successCallback, errorCallback) {
+        return crud.getRestData(url, data, successCallback, errorCallback);
+    }
+    
+    function saveBlobData(url, data, successCallback, errorCallback) {
+        return crud.saveRestData(url, data, successCallback, errorCallback, 'PATCH');
+    };
+    
+    function getProfileImage(employeeId) {
+        return `${getBaseUrl()}/${employeeId}/enclosure/ProfileImage`;
+    }
+    
 //    const departmentColumns = [{"headerText": "Department", "renderer": oj.KnockoutTemplateUtils.getRenderer("dept_name", true) },
 //            {"headerText": "Location Id", "field": "LocationId"},
 //            {"headerText": "ManagerId", "field": "ManagerId"}];
@@ -79,7 +91,10 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
         employeeActionColumns,
         getEmployeeModel,
         getEmployeeCollection,
-        getChildAccessorCollection
+        getChildAccessorCollection,
+        getRestData,
+        saveBlobData,
+        getProfileImage
     };
     
 });

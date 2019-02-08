@@ -2,7 +2,6 @@
     <h1 data-bind="text: heading"></h1>
     <hr>
     <oj-refresher id="refresher" refresh-content="[[updateChart]]" text="Fetching latest data...">
-        <div class="oj-panel oj-margin oj-panel-alt2">
             <div id="form-container" class="oj-form-layout">
                 <div class="oj-sm-labels-inline">
                     <div class="oj-form oj-flex">
@@ -15,9 +14,19 @@
                     </div>
                 </div>
             </div>
+            <div class="oj-margin"></div>
+        <div style="cursor: pointer; height: 30px;" class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center">
+            <oj-buttonset-one id="pieType1" value="{{pieType}}">
+                <oj-option value="pie" style="cursor: pointer !important;">
+                    <span>Pie</span>
+                </oj-option>
+                <oj-option value="donut" style="cursor: pointer !important;">
+                    <span>Donut</span>
+                </oj-option>
+            </oj-buttonset-one>
         </div>
-        <div class="oj-flex">
-            <div id="pieContainer" class="oj-flex-item oj-sm-justify-content-center">
+        <div class="oj-flex oj-flex-items-pad">
+            <div id="pieContainer" class="oj-flex-item oj-sm-flex-items-initial oj-sm-justify-content-center">
                 <oj-chart id="pieChart"
                           type="pie" 
                           series="[[pieSeriesValue]]"
@@ -25,15 +34,15 @@
                           selection="{{selectionValue}}"
                           animation-on-display="auto"
                           animation-on-data-change="auto"
+                          style-defaults.pie-inner-radius="[[innerRadius]]"
                           style-defaults.three-d-effect="[[threeDValue]]"
                           style-defaults.data-label-position="center"
                           value-formats.series.tooltip-label="Department"
                           value-formats.value.tooltip-label="Salary"
-                          hover-behavior="dim"
                           legend.rendered="off">
                 </oj-chart>
             </div>
-            <div id="pieContainer" class="oj-flex-item">
+            <div id="barContainer" class="oj-flex-item oj-sm-flex-items-initial oj-sm-justify-content-center">
                 <oj-bind-if test="showChild">
                     <oj-chart id="barChart"
                               type="bar"
@@ -56,8 +65,7 @@
                               value-formats.series.tooltip-display="off"
                               value-formats.group.tooltip-label="Employee"
                               value-formats.value.tooltip-label="Salary"
-                              style-defaults.data-label-position="center"
-                              hover-behavior="dim">
+                              style-defaults.data-label-position="center">
                     </oj-chart>
                 </oj-bind-if>
             </div>

@@ -1,101 +1,113 @@
 <oj-messages messages="[[messagesDataprovider]]" position="{}" display="notification"></oj-messages>
 <div class="oj-flex oj-header-border">
-    <div class="oj-flex-item">
-        <div class="oj-sm-float-start" id='buttons-container' style="margin-top: 20px;">    
-            <button id="backBtn" data-bind="click: cancelTransaction, ojComponent: {component: 'ojButton', 
+    <div class="oj-flex-item oj-flex-bar-start" id='buttons-container' style="margin-top: 20px;">    
+        <button id="backBtn" data-bind="click: cancelTransaction, ojComponent: {component: 'ojButton', 
                                                                            icons: {start:'oj-fwk-icon-caret-start oj-fwk-icon'}, 
-                                                                           label: 'Cancel'}">
-            </button>
-        </div>
-        <div class="oj-sm-float-end" id='buttons-container' style="margin-top: 20px;">    
-            <button id="saveBtn" data-bind="click: saveTransaction, ojComponent: {component: 'ojButton', 
+                                                                           label: 'Back'}">
+        </button>
+    </div>
+    <div class="oj-flex-item oj-sm-only-hide"><h2 data-bind="text: heading" style="margin-top: 20px;"></h2></div>
+    <div class="oj-flex-bar-end" id='buttons-container' style="margin-top: 20px;">    
+        <button id="saveBtn" data-bind="click: saveTransaction, ojComponent: {component: 'ojButton', 
                                                                            icons: {end:'oj-fwk-icon-caret-end oj-fwk-icon'}, 
                                                                            label: 'Save'}">
-            </button>
-        </div>
+        </button>
     </div>
 </div>
-<h2 data-bind="text: heading"></h2>
-<div id="form-container">
-    <oj-validation-group id="tracker" valid="{{employeeValid}}">
-        <div class="oj-form-layout" data-bind="with: EmployeeModel">
-            <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-5 oj-md-labels-inline">
-
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <oj-label for="empid" show-required='true'>Employee Id</oj-label>
+<div class="oj-flex oj-fl">
+    <div class="oj-flex-item oj-flex-bar-start oj-sm-flex-0 oj-margin" id='buttons-container' style="margin-left: -5px;">    
+        <oj-avatar role="img" size="lg" initials='[[avatarInitials]]'
+                   src="[[avatarUrl]]">
+        </oj-avatar>
+    </div>
+    <div class="oj-flex-item oj-margin">
+        <oj-validation-group id="tracker" valid="{{employeeValid}}">
+            <div class="oj-form-layout" data-bind="with: EmployeeModel">
+                <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-5 oj-md-labels-inline">
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="empid" show-required='true'>Employee Id</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-input-text id="empid" value="{{attributes.EmployeeId}}" clear-icon="conditional" required autofocus></oj-input-text>
+                        </div>
                     </div>
-                    <div class="oj-flex-item">
-                        <oj-input-text id="empid" value="{{attributes.EmployeeId}}" clear-icon="conditional" required></oj-input-text>
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="firstname">First Name</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-input-text autofocus id="firstname" value="{{attributes.FirstName}}" clear-icon="conditional"></oj-input-text>
+                        </div>
                     </div>
-                </div>
-
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <oj-label for="firstname">First Name</oj-label>
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="lastname">Last Name</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-input-text id="lastname" value="{{attributes.LastName}}" clear-icon="conditional"></oj-input-text>
+                        </div>
                     </div>
-                    <div class="oj-flex-item">
-                        <oj-input-text autofocus id="firstname" value="{{attributes.FirstName}}" clear-icon="conditional"></oj-input-text>
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="email" show-required="true">Email</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-input-text id="email" value="{{attributes.Email}}" clear-icon="conditional" required></oj-input-text>
+                        </div>
                     </div>
-                </div>
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <oj-label for="lastname">Last Name</oj-label>
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="jobid">Job</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-input-text id="jobid" value="{{attributes.JobId}}" clear-icon="conditional"></oj-input-text>
+                        </div>
                     </div>
-                    <div class="oj-flex-item">
-                        <oj-input-text id="lastname" value="{{attributes.LastName}}" clear-icon="conditional"></oj-input-text>
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="hiredate" show-required="true">Hired On</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-input-date id="hiredate" value="{{attributes.HireDate}}" required converter="[[$parent.dateConverter]]" clear-icon="conditional"></oj-input-date>
+                        </div>
                     </div>
-                </div>
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <oj-label for="email" show-required="true">Email</oj-label>
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="salary">Salary</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-input-number id="salary" value="{{attributes.Salary}}" step='10' min='0' clear-icon="conditional"></oj-input-number>
+                        </div>
                     </div>
-                    <div class="oj-flex-item">
-                        <oj-input-text id="email" value="{{attributes.Email}}" clear-icon="conditional" required></oj-input-text>
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="deptid" show-required="true">Department</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-input-number id="deptid" value="{{attributes.DepartmentId}}" required step='10' min='0' clear-icon="conditional"></oj-input-number>
+                        </div>
                     </div>
-                </div>
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <oj-label for="jobid">Job</oj-label>
-                    </div>
-                    <div class="oj-flex-item">
-                        <oj-input-text id="jobid" value="{{attributes.JobId}}" clear-icon="conditional"></oj-input-text>
-                    </div>
-                </div>
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <oj-label for="hiredate" show-required="true">Hired On</oj-label>
-                    </div>
-                    <div class="oj-flex-item">
-                        <oj-input-date id="hiredate" value="{{attributes.HireDate}}" required converter="[[$parent.dateConverter]]" clear-icon="conditional"></oj-input-date>
-                    </div>
-                </div>
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <oj-label for="salary">Salary</oj-label>
-                    </div>
-                    <div class="oj-flex-item">
-                        <oj-input-number id="salary" value="{{attributes.Salary}}" step='10' min='0' clear-icon="conditional"></oj-input-number>
-                    </div>
-                </div>
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <oj-label for="deptid" show-required="true">Department</oj-label>
-                    </div>
-                    <div class="oj-flex-item">
-                        <oj-input-number id="deptid" value="{{attributes.DepartmentId}}" required step='10' min='0' clear-icon="conditional"></oj-input-number>
-                    </div>
-                </div>
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <oj-label for="statusflag" show-required="true">Status</oj-label>
-                    </div>
-                    <div class="oj-flex-item">
-                        <oj-switch id="statusflag" value="{{attributes.ActiveFlag}}" required ></oj-switch>
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <oj-label for="statusflag" show-required="true">Status</oj-label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <oj-switch id="statusflag" value="{{attributes.ActiveFlag}}" required ></oj-switch>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </oj-validation-group>
-</div>
+        </oj-validation-group>
+    </div>
+    <div class="oj-flex-bar-end oj-sm-flex-0 oj-margin" id='picker-container' style="margin-right: -5px;">    
+        <oj-file-picker class='oj-filepicker-custom'
+                        select-on='click'
+                        selection-mode="single"
+                        on-oj-select='[[uploadEmployeeImage]]'>
+            <oj-button slot='trigger'>
+                Upload<span slot='endIcon' class='oj-fwk-icon oj-fwk-icon-arrowbox-n'></span>
+            </oj-button>
+        </oj-file-picker>
+    </div>
 </div>
