@@ -8,7 +8,7 @@ define(['ojs/ojcore', 'knockout', 'data/server', 'ojs/ojknockout', 'ojs/ojnaviga
       self.smScreen = oj.ResponsiveKnockoutUtils.createMediaQueryObservable(smQuery);
 
       self.appName = ko.observable("JET HR Basic");
-      self.userLogin = ko.observable("anirban.m.mukherjee@oracle.com");
+      self.userLogin = ko.observable("anirbmuk");
       
       server.setServerModel('127.0.0.1', 7101, 'hr/rest/v1/');
       

@@ -1,0 +1,40 @@
+{
+    "name": "hr-chart",
+    "author": "anirbmuk",
+    "description": "Web component wrapper for oj-chart elements",
+    "version": "1.0.0",
+    "jetVersion": "^6.0.0",
+    "properties": {
+        "chartComponentId": {
+            "type": "string"
+        },
+        "styleDefaults": {
+            "type": "object"
+        },
+        "chartDefaults": {
+            "type": "object"
+        },
+        "chartLegend": {
+            "type": "object"
+        },
+        "valueFormats": {
+            "type": "object"
+        },
+        "pieCenter": {
+            "type": "object"
+        },
+        "chartSeriesValue": {
+            "type": "object"
+        },
+        "chartGroupsValue": {
+            "type": "object"
+        }
+    },
+    "events": {
+        "drillDown": {
+            "detail": {
+                "type": "object"
+            }
+        }
+    }
+}

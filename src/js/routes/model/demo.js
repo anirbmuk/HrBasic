@@ -1,93 +1,67 @@
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojlabel',
-'ojs/ojinputtext', 'ojs/ojbutton', 'ojs/ojvalidationgroup'], function(oj, ko, $) {
+define(['ojs/ojcore',
+        'knockout',
+        'jquery',
+        'common/composites/hr-chart/loader'],
+    function(oj, ko, $) {
     
-    function DemoViewModel() {
-        
-        const self = this;
-        
-        self.firstName = ko.observable('');
-        self.lastName = ko.observable('');
-        
-        self.validators = [
-            {
-                type: 'length',
-                options: { 
-                    min: 5, 
-                    max: 30,
-                    messageSummary : {
-                        tooLong: 'Maximum {max} characters allowed',
-                        tooShort: 'Minimum {min} characters required'
-                    },
-                    messageDetail: { 
-                        tooLong: 'Number of characters is too high. Enter at most {max} characters',
-                        tooShort: 'Number of characters is too low. Enter at least {min} characters.'}
-                    }
-            }
-        ];
-        
-        self.validateFn = function() {
-            const tracker = $("#tracker")[0];
-            if (tracker.valid !== 'valid') {
-                tracker.showMessages();
-                tracker.focusOn("@firstInvalidShown");
-            } else {
-                console.log('all fields validated');
-            }
-        };
-        
-        self.novalidateFn = function() {
-            console.log('novalidate');
-        };
-        
-        self.validGroup = ko.observable();
-        
-        self.dataTemplate = {
-            name: 'demo-template',
-            value: {
-                components: [
+        function DemoViewModel() {
+
+            const self = this;
+            
+            self.pieSeriesValue = ko.observableArray([
                     {
-                        component: 'ojButton',
-                        id: 'btn1',
-                        label: 'Save',
-                        cssClass: 'oj-button oj-button-confirm',
-                        clickAction: self.validateFn
+                        name: "Administration", items: [{ id: 10, value: 20 }]
                     },
                     {
-                        component: 'ojButton',
-                        id: 'btn2',
-                        label: 'Cancel',
-                        cssClass: 'oj-button oj-button-primary',
-                        clickAction: self.novalidateFn
-                    }
-                ]
-            }
-        };
-        
-        self.groupTemplate = {
-            name: 'group-template',
-            value: {
-                groups: [
-                    {
-                        component: 'ojInputText',
-                        id: 'input1',
-                        label: 'First Name',
-                        inputValue: self.firstName(),
-                        isRequired: true,
-                        validators: self.validators
+                        name: "Shipping", items: [{ id: 20, value: 50 }]
                     },
                     {
-                        component: 'ojInputText',
-                        id: 'input2',
-                        label: 'Last Name',
-                        inputValue: self.lastName(),
-                        isRequired: false,
-                        validators: []
+                        name: "IT Support", items: [{ id: 30, value: 25 }]
+                    },
+                    {
+                        name: "Payroll", items: [{ id: 40, value: 10 }]
                     }
-                ]
-            }
-        };
-        
-    };
+                ]);
+            
+            self.pieGroupsValue = ko.observableArray(['Employee Count']);
+            
+            self.pieCenter = {
+                labelStyle: { fontSize: '18px', color: '#99999' },
+                label: 'Employee Count'
+            };
+            self.valueFormats = {
+                series: {
+                    tooltipLabel: 'Department'
+                },
+                value: {
+                    tooltipLabel: 'Count'
+                }
+            };
+            self.chartDefaults = {
+                sorting: 'descending',
+                selectionMode: 'none',
+                drilling: 'on',
+                type: 'pie',
+                animationOnDisplay: 'auto',
+                animationOnDataChange: 'auto'
+            };
+            self.styleDefaults = {
+                pieInnerRadius: 0.8,
+                dataLabelPosition: 'auto',
+                threeDEffect: 'off'
+            };
+            self.pieLegend = {
+                rendered: 'off'
+            };
+            
+            self.init = function() {
+            };
+            
+            self.onDrillDownAction = function(event) {
+                console.log(event);
+            };
+
+        }
     
     return new DemoViewModel();
     

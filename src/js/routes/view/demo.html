@@ -1,19 +1,17 @@
-<div class="oj-hybrid-padding">
-    <div data-bind="template: { 'name': dataTemplate.name, 'data': dataTemplate.value }"></div>
-    <div data-bind="template: { 'name': groupTemplate.name, 'data': groupTemplate.value }"></div>
-</div>
-<script type="text/html" id="demo-template">
-    <div data-bind="foreach: components">
-        <oj-button on-oj-action="[[$data.clickAction]]" data-bind="attr: {id: $data.id}, css: $data.cssClass"><span data-bind="text: $data.label"></span></oj-button>
-    </div>
-</script>
-<script type="text/html" id="group-template">
-    <oj-validation-group id="tracker" valid="{{$parent.validGroup}}">
-        <div class="oj-form-layout">
-            <div class="oj-form" data-bind="foreach: groups">
-                <oj-label for="[[$data.id]]"><span data-bind="text: $data.label"></oj-label>
-                <oj-input-text data-bind="attr: {id: $data.id, required: $data.isRequired}" value="{{$data.inputValue}}" validators="[[$data.validators]]"></oj-input-text>
-            </div>
+<div class="oj-panel">
+    <div class="oj-sm-12 oj-md-6 oj-lg-6">
+        <div class="oj-panel-alt1">
+            <hr-chart
+                chart-component-id="employeeCountChart"
+                chart-defaults="[[chartDefaults]]"
+                style-defaults="[[styleDefaults]]"
+                chart-series-value="[[pieSeriesValue]]"
+                chart-groups-value="[[pieGroupsValue]]"
+                pie-center="[[pieCenter]]"
+                value-formats="[[valueFormats]]"
+                on-drill-down="[[onDrillDownAction]]"
+                chart-legend="[[pieLegend]]">                
+            </hr-chart>
         </div>
-    </oj-validation-group>
-</script>
+    </div>
+</div>
