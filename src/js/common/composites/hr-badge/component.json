@@ -1,0 +1,23 @@
+{
+    "name": "hr-badge",
+    "author": "anirbmuk",
+    "description": "Web component for flip badge",
+    "version": "1.0.0",
+    "jetVersion": "^6.0.0",
+    "properties": {
+        "badgeName": {
+            "type": "string"
+        },
+        "badgeImage": {
+            "type": "string"
+        }
+    },
+    "slots": {
+        "badgeFront": {
+            "description": "Defines the front face of the badge component"
+        },
+        "badgeReverse": {
+            "description": "Defines the reverse face of the badge component, when flipped"
+        }
+    }
+}
