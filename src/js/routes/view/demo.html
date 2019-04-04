@@ -1,17 +1,17 @@
-<div class="oj-panel">
-    <div class="oj-sm-12 oj-md-6 oj-lg-6">
-        <div class="oj-panel-alt1">
-            <hr-chart
-                chart-component-id="employeeCountChart"
-                chart-defaults="[[chartDefaults]]"
-                style-defaults="[[styleDefaults]]"
-                chart-series-value="[[pieSeriesValue]]"
-                chart-groups-value="[[pieGroupsValue]]"
-                pie-center="[[pieCenter]]"
-                value-formats="[[valueFormats]]"
-                on-drill-down="[[onDrillDownAction]]"
-                chart-legend="[[pieLegend]]">                
-            </hr-chart>
-        </div>
-    </div>
+<div class="oj-margin"></div>
+<div class="oj-sm-12 oj-md-6 oj-lg-4">
+    <hr-chart
+        chart-component-id="employeeCountChart"
+        chart-defaults="[[chartDefaults]]"
+        style-defaults="[[styleDefaults]]"
+        chart-series-value="[[pieSeriesValue]]"
+        chart-groups-value="[[pieGroupsValue]]"
+        pie-center="[[pieCenter]]"
+        value-formats="[[valueFormats]]"
+        on-drill-down="[[onDrillDownAction]]"
+        chart-legend="[[pieLegend]]"
+        context-menu="[[contextMenu]]"
+        filter-options="[[filterOptions]]"
+        on-context-menu-action="[[contextMenuAction]]">
+    </hr-chart>
 </div>

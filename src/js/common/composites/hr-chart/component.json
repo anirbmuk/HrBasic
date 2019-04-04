@@ -28,10 +28,21 @@
         },
         "chartGroupsValue": {
             "type": "object"
+        },
+        "contextMenu": {
+            "type": "object"
+        },
+        "filterOptions": {
+            "type": "object"
         }
     },
     "events": {
         "drillDown": {
+            "detail": {
+                "type": "object"
+            }
+        },
+        "contextMenuAction": {
             "detail": {
                 "type": "object"
             }

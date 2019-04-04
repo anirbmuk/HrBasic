@@ -1,6 +1,6 @@
 <oj-chart :id="[[chartComponentId]]"
     type="[[chartType]]"
-    series="[[chartSeriesValue]]"
+    series="[[$properties.chartSeriesValue]]"
     groups="[[chartGroupsValue]]"
     style-defaults="[[styleDefaults]]"
     animation-on-display="[[animationOnDisplay]]"
@@ -12,4 +12,36 @@
     sorting="[[sorting]]"
     legend="[[legend]]"
     on-oj-drill="[[onOjDrill]]">
+    <!-- ko if: showChartContextMenu -->
+    <oj-menu id="chartOptionMenu" slot="contextMenu" style="display:none"
+             on-oj-before-open="[[beforeContextMenu]]"
+             on-oj-action="[[contextMenuAction]]">
+        <!-- ko foreach: contextMenu().options -->
+        <oj-option data-bind="attr: { id, value }"><span data-bind="text: label"></span></oj-option>
+        <!-- /ko -->
+    </oj-menu>
+    <!-- /ko -->
 </oj-chart>
+<oj-dialog style="display:none" id='filterModal'>
+    <div slot="header">
+        <div class="oj-dialog-title"><oj-bind-text value="Filter"></oj-bind-text></div>
+    </div>
+    <div slot="body">
+        <div data-bind="template: { 'name': 'filter-group-template', 'data': filterGroupTemplate.value }"></div>
+    </div>
+    <div slot="footer">
+        <oj-button id="okButton" class='oj-button-confirm' on-oj-action='[[onFilterDialogOK]]'>OK</oj-button>
+        <oj-button id="cancelButton" class='oj-button-primary' on-oj-action='[[onFilterDialogCancel]]'>Cancel</oj-button>
+    </div>
+</oj-dialog>
+<script type="text/html" id="filter-group-template">
+    <div class="oj-form-layout">
+        <div class="oj-form" data-bind="foreach: groups">
+            <oj-bind-if test="[[$data.visible]]">
+                <oj-label for="[[$data.id]]" show-required="[[$data.isRequired]]"><span data-bind="text: $data.label"></span></oj-label>
+                <input data-bind="ojComponent: {component: $data.component, value: $data.inputValue, required: $data.isRequired}, 
+                        attr: {id: $data.id}"></input>
+            </oj-bind-if>
+        </div>
+    </div>
+</script>
