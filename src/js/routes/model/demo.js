@@ -59,16 +59,16 @@ define(['ojs/ojcore',
                     {
                         id: "contextMenuOption1",
                         label: "Filter",
-                        value: "action1"
+                        value: "filter"
                     },
                     {
                         id: "contextMenuOption2",
-                        label: "Action 2",
-                        value: "action3"
+                        label: "Recalculate",
+                        value: "action2"
                     },
                     {
                         id: "contextMenuOption2",
-                        label: "Action 3",
+                        label: "View Details",
                         value: "action3"
                     }
                 ]
@@ -120,7 +120,8 @@ define(['ojs/ojcore',
             };
             
             self.contextMenuAction = function(event) {
-                console.log(event);
+                console.log(event.detail);
+                console.log(`Clicked on ${event.detail.selectedValue} from ${event.detail.series} (${event.detail.value}).`);
             };
 
         }

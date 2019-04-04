@@ -11,15 +11,14 @@ function(oj, ko) {
     function HrChartModel(context) {
         
         const self = this;
+        
         self.composite = context.element;
         self.properties = context.properties;
         
+        self.chartComponentId = ko.observable(self.properties.chartComponentId);
+        
         self.showChartContextMenu = ko.observable(self.properties.contextMenu.showContextMenu);
         self.contextMenu = ko.observable(self.properties.contextMenu);
-        
-        self.chartComponentId = ko.observable(self.properties.chartComponentId);
-        self.chartSeriesValue = self.properties.chartSeriesValue;
-        self.chartGroupsValue = ko.observableArray(self.properties.chartGroupsValue);
         
         self.styleDefaults = self.properties.styleDefaults;
         self.valueFormats = self.properties.valueFormats;
@@ -58,13 +57,16 @@ function(oj, ko) {
             if (chart) {
                 const context = chart.getContextByNode(target);
                 if (context && context.subId === "oj-chart-item") {
+                    // store chart information in local variable
                     self.chartItem(chart.getDataItem(context["seriesIndex"], context["itemIndex"]));
+                } else {
+                    self.chartItem({});
                 }
             }
         };
         
         self.contextMenuAction = function(event) {
-             if (event.target && event.target.value === 'action1') {
+             if (event.target && event.target.value === 'filter') {
                 $('#filterModal')[0].open();
             } else {
                 self.handleContextMenuAction(event.target);
@@ -95,6 +97,7 @@ function(oj, ko) {
         const customDetail = JSON.parse(JSON.stringify(detail));
         customDetail.itemSelected = detail;
         customDetail.selectedValue = detail.value;
+        // Use data from local variable
         customDetail.series = self.chartItem().series;
         customDetail.group = self.chartItem().group;
         customDetail.value = self.chartItem().value;
