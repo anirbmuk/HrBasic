@@ -30,3 +30,27 @@
         <span data-bind="text: $parent.getStringFromDate($context.row.HireDate, 'dd-MMM-yyyy')"></span>
     </td>
 </script>
+<script type="text/html" id="empl_info">
+    <td>
+        <div style="font-weight: 500">
+            <span>
+                <oj-bind-text value="[[$context.row.FirstName + ' ' + $context.row.LastName]]"></oj-bind-text>
+            </span>
+        </div>
+        <span style="font-weight: 400; font-size: 12px;">
+            <oj-bind-text value="[[$context.row.JobId + ', ' + $context.row.DepartmentName]]"></oj-bind-text>
+        </span>
+    </td>
+</script>
+<script type="text/html" id="empl_salary">
+    <td>
+        <div style="font-weight: 500">
+            <span>
+                <oj-bind-text value="[[$context.row.Salary]]"></oj-bind-text>
+            </span>
+        </div>
+        <span style="font-weight: 400; font-size: 12px;">
+            <oj-bind-text value="[['USD']]"></oj-bind-text>
+        </span>
+    </td>
+</script>

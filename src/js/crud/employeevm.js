@@ -23,11 +23,13 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
             'FirstName': response.FirstName,
             'LastName': response.LastName,
             'Email': response.Email,
+            'PhoneNumber': response.PhoneNumber,
             'JobId': response.JobId,
             'HireDate': response.HireDate,
             'Salary': response.Salary,
             'DepartmentId': response.DepartmentId,
-            'ActiveFlag': response.ActiveFlag
+            'ActiveFlag': response.ActiveFlag,
+            'DepartmentName': response.DepartmentName
         };
     };
     
@@ -69,13 +71,11 @@ define(['data/urlhelper', 'crud/crudmodel'], function(urlhelper, crud) {
 //            {"headerText": "ManagerId", "field": "ManagerId"}];
 
     const employeeActionColumns = [{"headerText": "Id", "field": "EmployeeId" },
-            { "headerText": "First Name", "field": "FirstName" },
-            { "headerText": "Last Name", "field": "LastName"},
+            { "headerText": "Employee", "renderer": oj.KnockoutTemplateUtils.getRenderer("empl_info", true)},
             { "headerText": "Email", "field": "Email"},
-            { "headerText": "Job Id", "field": "JobId"},
-            { "headerText": "Salary", "field": "Salary"},
+            { "headerText": "Phone", "field": "PhoneNumber"},
+            { "headerText": "Salary", "renderer": oj.KnockoutTemplateUtils.getRenderer("empl_salary", true)},
             { "headerText": "Hired On", "renderer": oj.KnockoutTemplateUtils.getRenderer("empl_date", true)},
-            { "headerText": "Department", "field": "DepartmentId"},
             { "headerText": "Actions", "renderer": oj.KnockoutTemplateUtils.getRenderer("empl_ops", true) }];
         
     const employeeColumns = [{"headerText": "Id", "field": "EmployeeId" },

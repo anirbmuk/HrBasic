@@ -59,6 +59,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'crud/departmentvm', 'common/utils/t
         self.departmentSearch = function () {
             const departmentSearchObject = [{ key: 'Bind_departmentname', value: self.departmentNameInput() }];
             self.DepartmentData(department.getDepartmentCollection(departmentSearchObject, self.departmentParams));
+            console.log('departments', self.DepartmentData());
             self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.DepartmentData())));
         };
         

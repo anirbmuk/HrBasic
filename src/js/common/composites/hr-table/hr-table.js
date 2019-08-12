@@ -23,7 +23,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojtable', 'ojs/ojpagingcontrol', 'ojs/ojs
         };
     };
     
-    HrTableViewModel.prototype.attached = function(ctx) {
+    HrTableViewModel.prototype.connected = function(ctx) {
         var self = this;
         self.composite = ctx.element;
         self.composite.addEventListener('dblclick', function(event) {
