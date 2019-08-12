@@ -99,7 +99,7 @@ function(oj, ko, $, chart, dept, emp) {
             }
         };
         
-        self.connected = function() {
+        self.handleActivated = function() {
             self.showChild(false);
             self.selectionValue(null);
             chart.getSalaryDistCollection(self.salaryDistParams).fetch({

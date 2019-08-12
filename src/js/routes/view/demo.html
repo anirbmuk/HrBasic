@@ -1,5 +1,5 @@
 <div class="oj-margin"></div>
-<div class="oj-sm-12 oj-md-6 oj-lg-4">
+<!--div class="oj-sm-12 oj-md-6 oj-lg-4">
     <hr-chart
         chart-component-id="employeeCountChart"
         chart-defaults="[[chartDefaults]]"
@@ -14,4 +14,18 @@
         filter-options="[[filterOptions]]"
         on-context-menu-action="[[contextMenuAction]]">
     </hr-chart>
+</div>
+<hr-->
+<div class="oj-flex">
+    <div class="oj-flex-item">
+        <oj-label for="selectTab">Select default tab</oj-label>
+        <oj-select-one id="selectTab" value="{{defaultTab}}">
+            <oj-option value="tab1">Tab1</oj-option>
+            <oj-option value="tab2">Tab2</oj-option>
+            <oj-option value="tab3">Tab3</oj-option>
+            <oj-option value="tab4">Tab4</oj-option>
+            <oj-option value="tab5">Tab5</oj-option>
+        </oj-select-one>
+        <oj-button id="selectBtn" on-oj-action="[[selectTab]]">Go</oj-button>
+    </div>
 </div>

@@ -33,7 +33,7 @@ function(oj, ko, $, emp, messageutils, dateutils) {
             expand: false
         };
         
-        self.init = function() {
+        self.handleActivated = function() {
             
             self.viewMode('edit');
             self.routeInstance(oj.Router.rootInstance);
@@ -201,6 +201,11 @@ function(oj, ko, $, emp, messageutils, dateutils) {
                 reader.onload = () => resolve(reader.result);
                 reader.onerror = error => reject(error);
             });
+        };
+        
+        self.handleDeactivated = function() {
+            console.log('disconnecting editEmployee');
+            oj.Router.rootInstance.store();
         };
         
     };

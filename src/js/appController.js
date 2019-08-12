@@ -22,6 +22,7 @@ define(['ojs/ojcore', 'knockout', 'data/server', 'ojs/ojknockout', 'ojs/ojnaviga
           'editEmployee': { label: 'Edit Employee', id: 'editEmployee' },
           'masterdetail': { label: 'Master-Detail', id: 'masterdetail' },
           'charts': { label: 'Charts', id: 'charts' },
+          'router-tab': { label: 'Router-Tab', id: 'router-tab', value: { defaultTab: 'tab3' } },
           'demo': { label: 'Playground', id: 'demo' }
         });
         
@@ -36,6 +37,8 @@ define(['ojs/ojcore', 'knockout', 'data/server', 'ojs/ojknockout', 'ojs/ojnaviga
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-catalog-icon-24'},
       {name: 'Charts', id: 'charts',
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'},
+      {name: 'Router-Tab', id: 'router-tab',
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-palette-icon-24'},
       {name: 'Playground', id: 'demo',
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-education-icon-24'}
       ];

@@ -30,7 +30,7 @@ define(['ojs/ojcore',
             expand: false
         };
         
-        self.init = function() {
+        self.handleActivated = function() {
             const initialized = self.initialized();
             
             const routerParams = oj.Router.rootInstance.retrieve();

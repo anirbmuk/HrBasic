@@ -24,9 +24,9 @@ requirejs.config(
     'promise': 'libs/es6-promise/es6-promise',
     'hammerjs': 'libs/hammer/hammer-2.0.8',
     'ojdnd': 'libs/dnd-polyfill/dnd-polyfill-1.0.0',
-    'ojs': 'libs/oj/v6.0.0/debug',
-    'ojL10n': 'libs/oj/v6.0.0/ojL10n',
-    'ojtranslations': 'libs/oj/v6.0.0/resources',
+    'ojs': 'libs/oj/v7.1.0/debug',
+    'ojL10n': 'libs/oj/v7.1.0/ojL10n',
+    'ojtranslations': 'libs/oj/v7.1.0/resources',
     'text': 'libs/require/text',
     'signals': 'libs/js-signals/signals',
     'customElements': 'libs/webcomponents/custom-elements.min',
@@ -52,8 +52,8 @@ require(['ojs/ojcore', 'knockout', 'appController', 'jquery', 'ojs/ojknockout', 
         
       oj.ModuleBinding.defaults.viewPath = 'text!routes/view/';
       oj.ModuleBinding.defaults.modelPath = 'routes/model/';
-      oj.ModuleBinding.defaults.activatedHandler = 'connected';
-      oj.ModuleBinding.defaults.initializeMethod = 'init';
+      /*oj.ModuleBinding.defaults.activatedHandler = 'connected';
+      oj.ModuleBinding.defaults.initializeMethod = 'init';*/
       
       function init() {
         // Bind your ViewModel for the content of the whole page body.

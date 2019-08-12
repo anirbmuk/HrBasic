@@ -46,7 +46,7 @@ function(oj, ko, $, tableutils, dept, emp) {
             return (self.selectedDept() ? `Employees of '${self.selectedDept()}'` : `Employees`);
         }, self);
         
-        self.init = function() {
+        self.handleActivated = function() {
             self.fetchDepts();
             self.selectedDept('');
             self.empDataSource(new oj.PagingTableDataSource(new oj.ArrayTableDataSource([])));

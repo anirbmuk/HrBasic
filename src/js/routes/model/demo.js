@@ -1,12 +1,16 @@
 define(['ojs/ojcore',
         'knockout',
         'jquery',
-        'common/composites/hr-chart/loader'],
+        'common/composites/hr-chart/loader',
+        'ojs/ojlabel',
+        'ojs/ojselectcombobox',
+        'ojs/ojbutton'],
     function(oj, ko, $) {
     
         function DemoViewModel() {
 
             const self = this;
+            self.defaultTab = ko.observable('tab1');
             
             self.pieSeriesValue = ko.observableArray([
                     {
@@ -122,6 +126,13 @@ define(['ojs/ojcore',
             self.contextMenuAction = function(event) {
                 console.log(event.detail);
                 console.log(`Clicked on ${event.detail.selectedValue} from ${event.detail.series} (${event.detail.value}).`);
+            };
+            
+            self.selectTab = function(event) {
+                oj.Router.rootInstance.store({
+                    defaultTab: self.defaultTab()
+                });
+                oj.Router.rootInstance.go("router-tab");
             };
 
         }
