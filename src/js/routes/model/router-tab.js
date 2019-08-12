@@ -11,18 +11,16 @@ function(oj, ko) {
         self.selectedTab = ko.observable('tab1');
         
         self.handleActivated = function() {
-            console.log(oj.Router.rootInstance);
             const routerInstanceValue = oj.Router.rootInstance.currentState().value;
-            const routerParams = oj.Router.rootInstance.retrieve();
-            
             console.log('routerInstanceValue', routerInstanceValue);
+            
+            const routerParams = oj.Router.rootInstance.retrieve();
             console.log('routerParams', routerParams);
             
             if (routerParams) {
                 self.defaultTab(routerParams.defaultTab);
             } else if (routerInstanceValue) {
                 self.defaultTab(routerInstanceValue.defaultTab);
-                oj.Router.rootInstance.store();
             }
         };
         
