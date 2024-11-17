@@ -5,7 +5,7 @@ JET 7.1.0 application - based on basic template of ojet cli
 https://github.com/anirbmuk/HrService.git
 
 # Blog
-https://jetsolutions.anirbanblogs.com/
+https://thejetsolutions.blogspot.com  
 
 # Update
 Updated JET cli to 7.1.0.
